@@ -3,68 +3,73 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Doctor Car Pro — Estimador Carrocería PR (Fix)</title>
+<title>Doctor Car Pro — Estimador Carrocería PR (FINAL)</title>
 <style>
 :root{
-  --bg:#0f1115; --card:#171922; --muted:#a8b0c0; --fg:#ffffff; --accent:#ef4444; --accent2:#3b82f6; --ok:#10b981; --warn:#f59e0b;
-  --border:#23263a; --table:#0c0e14;
+  --bg:#0c0f14; --fg:#e8edf4; --muted:#98a2b3; --card:#121723; --border:#252b3c; --accent:#1ea7b6; --accent2:#7c5cff; --ok:#10b981; --warn:#f59e0b;
 }
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
-header{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,rgba(0,0,0,.65),rgba(0,0,0,.2));backdrop-filter:blur(6px);border-bottom:1px solid var(--border)}
-.container{max-width:1200px;margin:0 auto;padding:16px}
-.row{display:flex;gap:12px;flex-wrap:wrap}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
-.logo{height:42px;width:42px;border-radius:10px;object-fit:cover;background:#111;border:1px solid var(--border)}
-.brand{display:flex;align-items:center;gap:12px}
-.brand h1{font-size:18px;margin:0}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-nav button{background:#121421;border:1px solid var(--border);color:var(--fg);padding:10px 14px;border-radius:12px;cursor:pointer}
-nav button.active{background:var(--accent);border-color:#000}
-.badge{display:inline-block;background:#151826;border:1px dashed var(--border);padding:4px 8px;border-radius:999px;color:var(--muted);font-size:12px}
-hr.sep{border:none;border-top:1px solid var(--border);margin:12px 0}
-label{font-size:12px;color:var(--muted)}
-input,select,textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:#0d0f18;color:var(--fg)}
-input[type="color"]{padding:2px;height:40px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:#121421;color:var(--fg);cursor:pointer}
-.btn.primary{background:var(--accent);border-color:#000;color:#fff}
-.btn.alt{background:var(--accent2)}
-.btn.ok{background:var(--ok);color:#08110c}
-.table{width:100%;border-collapse:separate;border-spacing:0}
-.table th,.table td{border-bottom:1px solid var(--border);padding:10px;vertical-align:top}
-.table thead th{position:sticky;top:68px;background:#0d0f18;z-index:1}
-.table tr:hover td{background:#0d0f1811}
-.grid{display:grid;gap:12px}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;font-size:14px}
+header{position:sticky;top:0;z-index:10;background:#0b0e14d0;border-bottom:1px solid var(--border);backdrop-filter:blur(6px)}
+.container{max-width:1200px;margin:0 auto;padding:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{height:36px;width:36px;border-radius:6px;border:1px solid var(--border);background:#0b0e14;object-fit:cover}
+.brand h1{font-size:16px;line-height:1.2;margin:0}
+nav{display:flex;gap:6px}
+nav button{background:#121628;border:1px solid var(--border);color:var(--fg);padding:8px 12px;border-radius:8px;cursor:pointer}
+nav button.active{background:var(--accent);border-color:#000;color:#06181b}
+.badge{display:inline-block;padding:4px 8px;border-radius:6px;border:1px dashed var(--border);color:var(--muted);font-size:12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;box-shadow:0 6px 14px rgba(0,0,0,.25)}
+.grid{display:grid;gap:10px}
 .grid.cols-2{grid-template-columns:repeat(2,1fr)}
 .grid.cols-3{grid-template-columns:repeat(3,1fr)}
 .grid.cols-4{grid-template-columns:repeat(4,1fr)}
-.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0e111a;border:1px solid var(--border);padding:2px 6px;border-radius:8px}
+label{font-size:12px;color:var(--muted)}
+input,select,textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:#0e1320;color:var(--fg)}
+textarea{resize:vertical}
+.btn{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border-radius:8px;border:1px solid var(--border);background:#121628;color:var(--fg);cursor:pointer}
+.btn.primary{background:var(--accent);border-color:#000;color:#06181b}
+.btn.alt{background:var(--accent2)}
+.btn.ok{background:var(--ok);color:#06130c}
+.btn.warn{background:#2a1e0d;border-color:#513a16;color:#ffbf47}
+.table{width:100%;border-collapse:separate;border-spacing:0}
+.table th,.table td{border-bottom:1px solid var(--border);padding:8px;vertical-align:top}
+.table thead th{position:sticky;top:64px;background:#0c101a;z-index:1}
+.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:#0b0f1a;border:1px solid var(--border);padding:2px 6px;border-radius:6px}
 .hidden{display:none}
 .small{font-size:12px;color:var(--muted)}
+.right{text-align:right}
 .center{text-align:center}
-footer{color:var(--muted);font-size:12px;padding:24px}
-/* ====== Vista tipo Mitchell (árbol + diagrama + lista) ====== */
-.split{display:grid;grid-template-columns:260px 1fr 340px;gap:12px}
-.tree{background:#0d0f18;border:1px solid var(--border);border-radius:12px;padding:8px;max-height:520px;overflow:auto}
-.tree details{border-left:2px solid #1f2333;margin:2px 0;padding-left:6px}
-.tree summary{cursor:pointer;color:#c7cee0}
-.diagram{background:#0d0f18;border:1px solid var(--border);border-radius:12px;min-height:420px;position:relative;display:flex;align-items:center;justify-content:center}
-.diagram svg{max-width:100%;height:auto;opacity:.95}
-.hotspot{position:absolute;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;border:1px solid #000;cursor:pointer}
-.partsList{background:#0d0f18;border:1px solid var(--border);border-radius:12px;padding:8px;max-height:520px;overflow:auto}
-.partsList .row{justify-content:space-between}
+hr.sep{border:none;border-top:1px solid var(--border);margin:8px 0}
+/* Vista tipo Mitchell */
+.split{display:grid;grid-template-columns:260px 1fr 340px;gap:10px}
+.tree,.diagram,.partsList{background:#0e1320;border:1px solid var(--border);border-radius:8px}
+.tree{padding:8px;max-height:520px;overflow:auto}
+.tree details{border-left:2px solid #1f2435;margin:2px 0;padding-left:6px}
+.tree summary{cursor:pointer;color:#c9d3e3}
+.diagram{position:relative;min-height:400px;display:flex;align-items:center;justify-content:center}
+.diagram svg{max-width:100%;height:auto;opacity:.96}
+.hotspot{position:absolute;display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:999px;background:var(--accent);color:#03161a;font-weight:700;border:1px solid #000;cursor:pointer}
+.partsList{padding:8px;max-height:520px;overflow:auto}
 .partsList .item{border-bottom:1px dashed var(--border);padding:6px 0}
 /* Print */
-@media print{header,#tabs,#loginView,.no-print{display:none!important}.card{border:none;box-shadow:none;padding:0}.quote{border:1px solid #d1d5db;border-radius:12px;padding:16px}body{background:#fff;color:#111827}}
+@media print{header,#tabs,#loginView,.no-print{display:none!important}.card{border:none;box-shadow:none;padding:0}.quote{border:1px solid #d1d5db;border-radius:8px;padding:12px}body{background:#fff;color:#111827}}
+/* Densidad compacta */
+.compact .card{padding:10px}
+.compact nav button,.compact .btn{padding:6px 10px}
+.compact input,.compact select,.compact textarea{padding:6px 8px}
+.compact .table th,.compact .table td{padding:6px}
+.compact .grid{gap:8px}
 </style>
 </head>
 <body>
 <header>
-  <div class="container row" style="align-items:center;justify-content:space-between">
+  <div class="container row" style="justify-content:space-between">
     <div class="brand">
       <img id="logoImg" class="logo" alt="logo"/>
       <h1>Doctor Car Pro — Estimador Carrocería PR</h1>
-      <span class="badge">Mitchell-style · Local/JSON</span>
+      <span class="badge">Estilo cuadrado · Local/JSON</span>
     </div>
     <div class="row">
       <button class="btn" id="btnImport">Importar JSON</button>
@@ -72,36 +77,30 @@ footer{color:var(--muted);font-size:12px;padding:24px}
       <button class="btn ok" id="btnSave">Guardar</button>
       <button class="btn alt" id="btnPrint">Imprimir</button>
       <button class="btn" id="btnLogout">Salir</button>
+      <label class="small" style="display:flex;align-items:center;gap:6px;margin-left:8px"><input type="checkbox" id="toggleCompact"> Compacto</label>
     </div>
   </div>
 </header>
 
 <div class="container" id="loginView">
-  <div class="card" style="max-width:520px;margin:24px auto">
+  <div class="card" style="max-width:520px;margin:18px auto">
     <h2 style="margin:0 0 6px">Iniciar sesión</h2>
     <p class="small">Credenciales iniciales: <span class="kbd">admin</span> / <span class="kbd">admin123</span></p>
     <div class="grid cols-1">
-      <div>
-        <label>Usuario</label>
-        <input id="lgUser" placeholder="usuario" autocomplete="username"/>
-      </div>
-      <div>
-        <label>Contraseña</label>
-        <input id="lgPass" type="password" placeholder="********" autocomplete="current-password"/>
-      </div>
-      <div class="row" style="justify-content:flex-end">
-        <button class="btn primary" id="doLogin">Entrar</button>
-      </div>
+      <div><label>Usuario</label><input id="lgUser" autocomplete="username"/></div>
+      <div><label>Contraseña</label><input id="lgPass" type="password" autocomplete="current-password"/></div>
+      <div class="right"><button class="btn primary" id="doLogin">Entrar</button></div>
     </div>
   </div>
 </div>
 
 <div class="container" id="app" style="display:none">
-  <div id="tabs" class="row no-print" style="margin:16px 0">
+  <div id="tabs" class="row no-print" style="margin:12px 0">
     <nav>
       <button data-tab="estimados" class="active">Estimados</button>
       <button data-tab="clientes">Clientes</button>
       <button data-tab="base">Base de Datos</button>
+      <button data-tab="registros">Registros</button>
       <button data-tab="config">Configuración</button>
       <button data-tab="ayuda">Ayuda</button>
     </nav>
@@ -110,20 +109,11 @@ footer{color:var(--muted);font-size:12px;padding:24px}
   <!-- Estimados -->
   <section id="tab-estimados" class="card">
     <div class="grid cols-3">
-      <div>
-        <label>Cliente</label>
-        <input id="qCliente" placeholder="Nombre del cliente"/>
-      </div>
-      <div>
-        <label>Teléfono</label>
-        <input id="qTel" placeholder="787-000-0000"/>
-      </div>
-      <div>
-        <label>Email</label>
-        <input id="qEmail" placeholder="cliente@email.com"/>
-      </div>
+      <div><label>Cliente</label><input id="qCliente" placeholder="Nombre"/></div>
+      <div><label>Teléfono</label><input id="qTel" placeholder="787-000-0000"/></div>
+      <div><label>Email</label><input id="qEmail" placeholder="cliente@email.com"/></div>
     </div>
-    <div class="grid cols-4" style="margin-top:12px">
+    <div class="grid cols-4" style="margin-top:10px">
       <div><label>Marca</label><select id="qMake"></select></div>
       <div><label>Modelo</label><select id="qModel"></select></div>
       <div><label>Año</label><select id="qYear"></select></div>
@@ -131,67 +121,44 @@ footer{color:var(--muted);font-size:12px;padding:24px}
     </div>
 
     <hr class="sep"/>
-
-    <div class="no-print" style="margin:6px 0 12px;display:flex;gap:8px;align-items:center">
+    <div class="no-print row" style="margin:6px 0 10px">
       <button class="btn primary" id="addLine">Añadir partida</button>
       <input id="quickPart" placeholder="Buscar pieza (ej: bumper, tapalodo, bonete)" style="max-width:320px"/>
-      <label class="small" style="margin-left:8px">Vista:</label>
-      <select id="viewSel">
-        <option value="front">Frente</option>
-        <option value="left">Lado izquierdo</option>
-        <option value="right">Lado derecho</option>
-        <option value="rear">Parte trasera</option>
-        <option value="roof">Techo</option>
-      </select>
+      <label class="small" style="margin-left:6px">Vista:</label>
+      <select id="viewSel"><option value="front">Frente</option><option value="left">Lado izquierdo</option><option value="right">Lado derecho</option><option value="rear">Parte trasera</option><option value="roof">Techo</option></select>
       <span class="badge">Toca un número o usa el árbol</span>
     </div>
 
-    <div class="split no-print" id="explodedView">
+    <div class="split no-print">
       <div class="tree" id="tree"></div>
       <div class="diagram" id="diagram">
         <svg viewBox="0 0 600 260" aria-label="diagrama-carro">
-          <defs>
-            <linearGradient id="carPaint" x1="0" x2="1">
-              <stop offset="0%" stop-color="#1f2a44"/>
-              <stop offset="100%" stop-color="#2a375c"/>
-            </linearGradient>
-          </defs>
+          <defs><linearGradient id="carPaint" x1="0" x2="1"><stop offset="0%" stop-color="#1d2745"/><stop offset="100%" stop-color="#26355c"/></linearGradient></defs>
           <g>
-            <rect x="40" y="120" width="520" height="60" rx="14" fill="url(#carPaint)" stroke="#4b5563"/>
+            <rect x="40" y="120" width="520" height="60" rx="12" fill="url(#carPaint)" stroke="#4b5563"/>
             <path d="M80 120 C140 50, 240 40, 360 70 L520 120 Z" fill="url(#carPaint)" stroke="#4b5563"/>
-            <circle cx="160" cy="190" r="36" fill="#0b0d14" stroke="#6b7280"/>
-            <circle cx="440" cy="190" r="36" fill="#0b0d14" stroke="#6b7280"/>
+            <circle cx="160" cy="190" r="34" fill="#0b0d14" stroke="#6b7280"/>
+            <circle cx="440" cy="190" r="34" fill="#0b0d14" stroke="#6b7280"/>
             <rect x="210" y="105" width="110" height="35" rx="6" fill="#111827" stroke="#6b7280"/>
           </g>
         </svg>
       </div>
       <div class="partsList" id="partsList">
-        <div class="row" style="align-items:center"><strong>Piezas</strong><span class="small" id="partsHint">Filtra desde el árbol o pulsa en un número</span></div>
+        <div class="row" style="justify-content:space-between;align-items:center"><strong>Piezas</strong><span class="small" id="partsHint">Filtra desde el árbol o pulsa en un número</span></div>
         <div id="partsItems"></div>
       </div>
     </div>
 
-    <div style="overflow:auto;margin-top:12px">
+    <div style="overflow:auto;margin-top:10px">
       <table class="table" id="linesTbl">
-        <thead>
-          <tr>
-            <th style="min-width:160px">Pieza / Descripción</th>
-            <th>Tipo</th>
-            <th>Cant.</th>
-            <th>Precio unit.</th>
-            <th>Horas carrocería</th>
-            <th>Horas pintura</th>
-            <th>Subtotal</th>
-            <th class="no-print"></th>
-          </tr>
-        </thead>
+        <thead><tr><th style="min-width:180px">Pieza / Descripción</th><th>Tipo</th><th>Cant.</th><th>Precio unit.</th><th>Hrs carrocería</th><th>Hrs pintura</th><th class="right">Subtotal</th><th class="no-print"></th></tr></thead>
         <tbody></tbody>
       </table>
     </div>
 
-    <div class="grid cols-3" style="margin-top:12px">
+    <div class="grid cols-3" style="margin-top:10px">
       <div class="card">
-        <h3 style="margin:0 0 8px">Totales</h3>
+        <h3 style="margin:0 0 6px">Totales</h3>
         <div class="grid cols-2">
           <div><label>Partes</label><div id="tParts" class="kbd">$0.00</div></div>
           <div><label>Labor carrocería</label><div id="tLaborBody" class="kbd">$0.00</div></div>
@@ -204,7 +171,7 @@ footer{color:var(--muted);font-size:12px;padding:24px}
         </div>
       </div>
       <div class="card">
-        <h3 style="margin:0 0 8px">Observaciones</h3>
+        <h3 style="margin:0 0 6px">Observaciones</h3>
         <textarea id="qNotes" rows="6" placeholder="Notas técnicas, códigos de color, blend, alineación, ADAS, etc."></textarea>
         <div class="row" style="margin-top:8px">
           <button class="btn ok" id="saveQuote">Guardar Estimado</button>
@@ -212,7 +179,7 @@ footer{color:var(--muted);font-size:12px;padding:24px}
         </div>
       </div>
       <div class="card">
-        <h3 style="margin:0 0 8px">Tarifas activas</h3>
+        <h3 style="margin:0 0 6px">Tarifas activas</h3>
         <div class="grid cols-2">
           <div><label>$/h carrocería</label><input id="rateBody" type="number" step="0.01"/></div>
           <div><label>$/h pintura</label><input id="ratePaint" type="number" step="0.01"/></div>
@@ -234,26 +201,15 @@ footer{color:var(--muted);font-size:12px;padding:24px}
         </div>
         <hr/>
         <div class="grid cols-2">
-          <div>
-            <strong>Cliente</strong>
-            <div id="pCliente"></div>
-            <div id="pTel" class="small"></div>
-            <div id="pEmail" class="small"></div>
-          </div>
-          <div>
-            <strong>Vehículo</strong>
-            <div id="pVehicle"></div>
-            <div id="pVIN" class="small"></div>
-          </div>
+          <div><strong>Cliente</strong><div id="pCliente"></div><div id="pTel" class="small"></div><div id="pEmail" class="small"></div></div>
+          <div><strong>Vehículo</strong><div id="pVehicle"></div><div id="pVIN" class="small"></div></div>
         </div>
-        <table style="width:100%;border-collapse:collapse;margin-top:8px">
-          <thead>
-            <tr style="border-bottom:1px solid #e5e7eb"><th align="left">Descripción</th><th align="left">Tipo</th><th align="right">Cant.</th><th align="right">Precio</th><th align="right">Horas</th><th align="right">Importe</th></tr>
-          </thead>
+        <table style="width:100%;border-collapse:collapse;margin-top:6px">
+          <thead><tr style="border-bottom:1px solid #e5e7eb"><th align="left">Descripción</th><th align="left">Tipo</th><th align="right">Cant.</th><th align="right">Precio</th><th align="right">Horas</th><th align="right">Importe</th></tr></thead>
           <tbody id="pLines"></tbody>
         </table>
-        <div class="row" style="justify-content:flex-end;margin-top:8px">
-          <table>
+        <div class="right" style="margin-top:6px">
+          <table style="margin-left:auto">
             <tr><td>Partes</td><td id="pParts" align="right"></td></tr>
             <tr><td>Labor carrocería</td><td id="pLaborBody" align="right"></td></tr>
             <tr><td>Labor pintura</td><td id="pLaborPaint" align="right"></td></tr>
@@ -264,39 +220,44 @@ footer{color:var(--muted);font-size:12px;padding:24px}
             <tr><td><strong>Total</strong></td><td id="pTotal" align="right"></td></tr>
           </table>
         </div>
-        <p class="small">Precios referenciales y editables. Sujeto a disponibilidad local en PR. Válido 7 días.</p>
       </div>
     </div>
   </section>
 
   <!-- Clientes -->
   <section id="tab-clientes" class="card hidden">
-    <div class="row">
-      <input id="cSearch" placeholder="Buscar cliente" style="max-width:320px"/>
-      <button class="btn" id="cNew">Nuevo</button>
-    </div>
-    <table class="table" id="cTbl">
-      <thead><tr><th>Nombre</th><th>Teléfono</th><th>Email</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table>
+    <div class="row"><input id="cSearch" placeholder="Buscar cliente" style="max-width:260px"/><button class="btn" id="cNew">Nuevo</button></div>
+    <table class="table" id="cTbl"><thead><tr><th>Nombre</th><th>Teléfono</th><th>Email</th><th></th></tr></thead><tbody></tbody></table>
   </section>
 
   <!-- Base de Datos -->
   <section id="tab-base" class="card hidden">
-    <div class="row">
-      <button class="btn" id="addVehicle">Añadir Vehículo</button>
-      <button class="btn" id="addPart">Añadir Pieza</button>
-      <span class="badge">Editable · Importa/Exporta JSON</span>
-    </div>
+    <div class="row"><button class="btn" id="addVehicle">Añadir Vehículo</button><button class="btn" id="addPart">Añadir Pieza</button><span class="badge">Editable · Importa/Exporta JSON</span></div>
     <div class="grid cols-3" style="margin-top:8px">
       <div><label>Marca</label><select id="dbMake"></select></div>
       <div><label>Modelo</label><select id="dbModel"></select></div>
       <div><label>Año</label><select id="dbYear"></select></div>
     </div>
-    <table class="table" id="partsTbl" style="margin-top:8px">
-      <thead><tr><th>Pieza</th><th>Tipo</th><th>Condición</th><th>Precio</th><th>HrsBody</th><th>HrsPaint</th><th>Proveedor</th><th></th></tr></thead>
-      <tbody></tbody>
-    </table>
+    <table class="table" id="partsTbl" style="margin-top:8px"><thead><tr><th>Pieza</th><th>Tipo</th><th>Condición</th><th>Precio</th><th>HrsBody</th><th>HrsPaint</th><th>Proveedor</th><th></th></tr></thead><tbody></tbody></table>
+  </section>
+
+  <!-- Registros (ver todo lo guardado) -->
+  <section id="tab-registros" class="card hidden">
+    <h3 style="margin:0 0 6px">Registros guardados</h3>
+    <div class="grid cols-3">
+      <div class="card"><label>Total cotizaciones</label><div id="countQuotes" class="kbd">0</div></div>
+      <div class="card"><label>Clientes</label><div id="countClients" class="kbd">0</div></div>
+      <div class="card"><label>Piezas en catálogo</label><div id="countParts" class="kbd">0</div></div>
+    </div>
+    <h4 style="margin:10px 0 6px">Cotizaciones</h4>
+    <table class="table" id="quotesTbl"><thead><tr><th>#</th><th>Fecha</th><th>Cliente</th><th>Vehículo</th><th class="right">Total</th><th></th></tr></thead><tbody></tbody></table>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="btnBackupAll">Exportar todo (JSON)</button>
+      <button class="btn" id="btnRefreshState">Ver JSON actual</button>
+      <button class="btn warn" id="btnClearAll">Borrar todo</button>
+    </div>
+    <label class="small" style="margin-top:6px">JSON guardado</label>
+    <textarea id="stateDump" rows="12" spellcheck="false" style="font-family:ui-monospace,Menlo,Consolas,monospace"></textarea>
   </section>
 
   <!-- Configuración -->
@@ -304,52 +265,32 @@ footer{color:var(--muted);font-size:12px;padding:24px}
     <div class="grid cols-3">
       <div>
         <h3>Empresa</h3>
-        <label>Nombre comercial</label>
-        <input id="cfgName" placeholder="Tu taller"/>
-        <label>Teléfono</label>
-        <input id="cfgPhone" placeholder="787-..."/>
-        <label>Email</label>
-        <input id="cfgMail" placeholder="correo@dominio.com"/>
-        <label>Dirección</label>
-        <textarea id="cfgAddr" rows="3" placeholder="Dirección"></textarea>
-        <label>Logo (PNG/JPG)</label>
-        <input id="cfgLogo" type="file" accept="image/*"/>
+        <label>Nombre comercial</label><input id="cfgName" placeholder="Tu taller"/>
+        <label>Teléfono</label><input id="cfgPhone" placeholder="787-..."/>
+        <label>Email</label><input id="cfgMail" placeholder="correo@dominio.com"/>
+        <label>Dirección</label><textarea id="cfgAddr" rows="3" placeholder="Dirección"></textarea>
+        <label>Logo (PNG/JPG)</label><input id="cfgLogo" type="file" accept="image/*"/>
       </div>
       <div>
         <h3>Tarifas & Impuestos</h3>
-        <label>Carrocería $/h</label>
-        <input id="cfgRateBody" type="number" step="0.01"/>
-        <label>Pintura $/h</label>
-        <input id="cfgRatePaint" type="number" step="0.01"/>
-        <label>Materiales %</label>
-        <input id="cfgMaterialsPct" type="number" step="0.1"/>
-        <label>Comisiones/Fees %</label>
-        <input id="cfgFeesPct" type="number" step="0.1"/>
-        <label>IVU % (PR)</label>
-        <input id="cfgTaxPct" type="number" step="0.01"/>
-        <label>Moneda</label>
-        <select id="cfgCurrency"><option value="USD" selected>USD</option></select>
+        <label>Carrocería $/h</label><input id="cfgRateBody" type="number" step="0.01"/>
+        <label>Pintura $/h</label><input id="cfgRatePaint" type="number" step="0.01"/>
+        <label>Materiales %</label><input id="cfgMaterialsPct" type="number" step="0.1"/>
+        <label>Comisiones/Fees %</label><input id="cfgFeesPct" type="number" step="0.1"/>
+        <label>IVU % (PR)</label><input id="cfgTaxPct" type="number" step="0.01"/>
+        <label>Moneda</label><select id="cfgCurrency"><option value="USD" selected>USD</option></select>
       </div>
       <div>
         <h3>Estilo</h3>
-        <label>Color primario</label>
-        <input id="cAccent" type="color"/>
-        <label>Color secundario</label>
-        <input id="cAccent2" type="color"/>
-        <label>Fondo</label>
-        <input id="cBg" type="color"/>
-        <label>Texto</label>
-        <input id="cFg" type="color"/>
-        <div class="row" style="margin-top:8px">
-          <button class="btn ok" id="applyTheme">Aplicar</button>
-          <button class="btn" id="resetTheme">Reset</button>
-        </div>
+        <label>Color primario</label><input id="cAccent" type="color"/>
+        <label>Color secundario</label><input id="cAccent2" type="color"/>
+        <label>Fondo</label><input id="cBg" type="color"/>
+        <label>Texto</label><input id="cFg" type="color"/>
+        <div class="row" style="margin-top:8px"><button class="btn ok" id="applyTheme">Aplicar</button><button class="btn" id="resetTheme">Reset</button></div>
         <hr class="sep"/>
         <h3>Usuarios</h3>
-        <label>Usuario</label>
-        <input id="newUser" placeholder="nuevo usuario"/>
-        <label>Contraseña</label>
-        <input id="newPass" type="password" placeholder="********"/>
+        <label>Usuario</label><input id="newUser" placeholder="nuevo usuario"/>
+        <label>Contraseña</label><input id="newPass" type="password" placeholder="********"/>
         <div class="row" style="margin-top:8px"><button class="btn" id="addUser">Guardar/Actualizar</button></div>
         <p class="small">Admin inicial: admin / admin123</p>
       </div>
@@ -369,139 +310,62 @@ footer{color:var(--muted);font-size:12px;padding:24px}
   </section>
 </div>
 
-<footer class="center small no-print">© <span id="y"></span> Doctor Car Pro · Estimador Carrocería PR — Hecho para Puerto Rico. </footer>
+<footer class="center small no-print">© <span id="y"></span> Doctor Car Pro · Estimador Carrocería PR — Hecho para Puerto Rico.</footer>
 
 <script>
-// ========= Helpers =========
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
-const fmt = (n, cur) => (new Intl.NumberFormat('es-PR',{style:'currency',currency:cur||state.cfg.currency}).format(+n||0));
-const genid = ()=>'id_'+Math.random().toString(36).slice(2,9);
-function download(filename, text){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type:'application/json'})); a.download=filename; a.click(); }
-function toDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file);});}
+// ===== Helpers =====
+const $ = s=>document.querySelector(s); const $$ = s=>Array.from(document.querySelectorAll(s));
+const fmt = (n,cur)=> new Intl.NumberFormat('es-PR',{style:'currency',currency:cur||state.cfg.currency}).format(+n||0);
+const genid=()=> 'id_'+Math.random().toString(36).slice(2,9);
+function download(fn,txt){ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([txt],{type:'application/json'})); a.download=fn; a.click(); }
+function toDataURL(file){return new Promise((res,rej)=>{const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file);});}
 
-// ========= Estado/Seed =========
-const SEED = {
-  cfg:{
-    business:{name:'Tu Taller', phone:'787-000-0000', email:'taller@correo.com', addr:'Dirección, PR', logo:null},
-    rates:{body:70, paint:65, materialsPct:8, feesPct:2, taxPct:11.5},
-    theme:{bg:'#0f1115', fg:'#ffffff', accent:'#ef4444', accent2:'#3b82f6'},
-    users:[{u:'admin', p:'admin123', role:'admin'}],
-    currency:'USD', seq:{quote:1001}
-  },
-  vehicles:[
-    {make:'Toyota', models:[{name:'Corolla', years:[2014,2015,2016,2017,2018,2019]},{name:'Camry', years:[2015,2016,2017,2018]},{name:'RAV4', years:[2016,2017,2018,2019]}]},
-    {make:'Honda', models:[{name:'Civic', years:[2012,2013,2014,2015,2016]},{name:'Accord', years:[2014,2015,2016]},{name:'CR-V', years:[2015,2016,2017]}]}
-  ],
-  parts:[
-    {make:'Toyota', model:'Corolla', year:2016, name:'Bumper delantero', type:'Parte', condition:'Aftermarket', price:240, hrsBody:2.0, hrsPaint:1.5, vendor:'Local aftermarket'},
-    {make:'Toyota', model:'Corolla', year:2016, name:'Tapalodo izq', type:'Parte', condition:'OEM', price:220, hrsBody:1.8, hrsPaint:1.2, vendor:'Dealer PR'},
-    {make:'Toyota', model:'Corolla', year:2016, name:'Bonete (hood)', type:'Parte', condition:'Reciclada', price:180, hrsBody:2.5, hrsPaint:2.0, vendor:'Junker PR'},
-    {make:'Honda', model:'Civic', year:2014, name:'Bumper trasero', type:'Parte', condition:'Aftermarket', price:230, hrsBody:1.6, hrsPaint:1.4, vendor:'Local aftermarket'}
-  ],
-  clients:[], quotes:[]
-};
-let state = JSON.parse(localStorage.getItem('dcp_state')||'null') || {cfg:SEED.cfg, db:{vehicles:SEED.vehicles, parts:SEED.parts, clients:SEED.clients||[]}, quotes:[], session:null};
-function persist(){localStorage.setItem('dcp_state', JSON.stringify(state));}
+// ===== Estado / Seed =====
+const SEED={ cfg:{ business:{name:'Tu Taller', phone:'787-000-0000', email:'taller@correo.com', addr:'Dirección, PR', logo:null}, rates:{body:70,paint:65,materialsPct:8,feesPct:2,taxPct:11.5}, theme:{bg:'#0c0f14',fg:'#e8edf4',accent:'#1ea7b6',accent2:'#7c5cff'}, users:[{u:'admin',p:'admin123',role:'admin'}], currency:'USD', seq:{quote:1001}, ui:{compact:true} }, vehicles:[ {make:'Toyota',models:[{name:'Corolla',years:[2016,2017,2018]},{name:'Camry',years:[2017,2018]}]}, {make:'Honda',models:[{name:'Civic',years:[2014,2015]},{name:'Accord',years:[2016]}]} ], parts:[ {make:'Toyota',model:'Corolla',year:2016,name:'Bumper delantero',type:'Parte',condition:'Aftermarket',price:240,hrsBody:2.0,hrsPaint:1.5,vendor:'Local aftermarket'}, {make:'Toyota',model:'Corolla',year:2016,name:'Tapalodo izq',type:'Parte',condition:'OEM',price:220,hrsBody:1.8,hrsPaint:1.2,vendor:'Dealer PR'}, {make:'Honda',model:'Civic',year:2014,name:'Bumper trasero',type:'Parte',condition:'Aftermarket',price:230,hrsBody:1.6,hrsPaint:1.4,vendor:'Local aftermarket'} ], clients:[], quotes:[] };
+let state = JSON.parse(localStorage.getItem('dcp_state')||'null') || { cfg:SEED.cfg, db:{vehicles:SEED.vehicles, parts:SEED.parts, clients:[]}, quotes:[], session:null };
+function persist(){ localStorage.setItem('dcp_state', JSON.stringify(state)); const el=$('#stateDump'); if(el) el.value = JSON.stringify({cfg:state.cfg, db:state.db, quotes:state.quotes}, null, 2); }
 
-// ========= Auth & Nav =========
-function showApp(on){ $('#loginView').style.display = on?'none':'block'; $('#app').style.display = on?'block':'none'; }
-function bindNav(){
-  $$('nav button').forEach(b=>b.onclick=()=>{
-    $$('nav button').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    const tab=b.dataset.tab;
-    ['estimados','clientes','base','config','ayuda'].forEach(t=>$('#tab-'+t).classList.toggle('hidden', t!==tab));
-  });
-}
-$('#doLogin').onclick=()=>{
-  const u=$('#lgUser').value.trim(); const p=$('#lgPass').value;
-  const ok=state.cfg.users?.some(x=>x.u===u && x.p===p);
-  if(ok){ state.session={u,ts:Date.now()}; persist(); showApp(true); initUI(); }
-  else alert('Usuario/contraseña inválidos');
-};
+// ===== Auth & Nav =====
+function showApp(on){ $('#loginView').style.display=on?'none':'block'; $('#app').style.display=on?'block':'none'; }
+function bindNav(){ $$('nav button').forEach(b=> b.onclick=()=>{ $$('nav button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); const tab=b.dataset.tab; ['estimados','clientes','base','registros','config','ayuda'].forEach(t=> $('#tab-'+t).classList.toggle('hidden', t!==tab)); }); }
+$('#doLogin').onclick=()=>{ const u=$('#lgUser').value.trim(), p=$('#lgPass').value; const ok = state.cfg.users?.some(x=>x.u===u && x.p===p); if(ok){ state.session={u,ts:Date.now()}; persist(); showApp(true); initUI(); } else alert('Usuario/contraseña inválidos'); };
 $('#btnLogout').onclick=()=>{ state.session=null; persist(); showApp(false); bindNav(); };
 
-// ========= Config & Theme =========
-function loadCfgForm(){
-  const c=state.cfg;
-  $('#cfgName').value=c.business.name; $('#cfgPhone').value=c.business.phone; $('#cfgMail').value=c.business.email; $('#cfgAddr').value=c.business.addr;
-  $('#cfgRateBody').value=c.rates.body; $('#cfgRatePaint').value=c.rates.paint; $('#cfgMaterialsPct').value=c.rates.materialsPct; $('#cfgFeesPct').value=c.rates.feesPct; $('#cfgTaxPct').value=c.rates.taxPct; $('#cfgCurrency').value=c.currency;
-  $('#cAccent').value=c.theme.accent; $('#cAccent2').value=c.theme.accent2; $('#cBg').value=c.theme.bg; $('#cFg').value=c.theme.fg;
-  if(c.business.logo) $('#logoImg').src=c.business.logo; else $('#logoImg').src='';
-}
-$('#applyTheme').onclick=()=>{ const th=state.cfg.theme={bg:$('#cBg').value, fg:$('#cFg').value, accent:$('#cAccent').value, accent2:$('#cAccent2').value}; Object.entries(th).forEach(([k,v])=>document.documentElement.style.setProperty('--'+(k==='accent2'?'accent2':k), v)); persist(); };
-$('#resetTheme').onclick=()=>{ state.cfg.theme=SEED.cfg.theme; loadCfgForm(); $('#applyTheme').click(); };
+// ===== Config & Theme =====
+function applyTheme(){ const th=state.cfg.theme; document.documentElement.style.setProperty('--bg', th.bg); document.documentElement.style.setProperty('--fg', th.fg); document.documentElement.style.setProperty('--accent', th.accent); document.documentElement.style.setProperty('--accent2', th.accent2); }
+function loadCfgForm(){ const c=state.cfg; $('#cfgName').value=c.business.name; $('#cfgPhone').value=c.business.phone; $('#cfgMail').value=c.business.email; $('#cfgAddr').value=c.business.addr; $('#cfgRateBody').value=c.rates.body; $('#cfgRatePaint').value=c.rates.paint; $('#cfgMaterialsPct').value=c.rates.materialsPct; $('#cfgFeesPct').value=c.rates.feesPct; $('#cfgTaxPct').value=c.rates.taxPct; $('#cfgCurrency').value=c.currency; $('#cAccent').value=c.theme.accent; $('#cAccent2').value=c.theme.accent2; $('#cBg').value=c.theme.bg; $('#cFg').value=c.theme.fg; if(c.business.logo) $('#logoImg').src=c.business.logo; }
+$('#applyTheme').onclick=()=>{ state.cfg.theme={bg:$('#cBg').value, fg:$('#cFg').value, accent:$('#cAccent').value, accent2:$('#cAccent2').value}; applyTheme(); persist(); };
+$('#resetTheme').onclick=()=>{ state.cfg.theme=SEED.cfg.theme; loadCfgForm(); applyTheme(); persist(); };
 $('#cfgLogo').onchange=async(e)=>{ const f=e.target.files?.[0]; if(!f) return; state.cfg.business.logo = await toDataURL(f); persist(); loadCfgForm(); };
 $('#addUser').onclick=()=>{ const u=$('#newUser').value.trim(), p=$('#newPass').value.trim(); if(!u||!p) return alert('Completa usuario y contraseña'); const i=state.cfg.users.findIndex(x=>x.u===u); if(i>=0) state.cfg.users[i].p=p; else state.cfg.users.push({u,p,role:'admin'}); persist(); alert('Usuario guardado'); };
 
-// ========= Selectores Vehículo =========
-function fillSelectors(prefix){
-  const mk=$('#'+prefix+'Make'), md=$('#'+prefix+'Model'), yr=$('#'+prefix+'Year');
-  mk.innerHTML = state.db.vehicles.map(v=>`<option value="${v.make}">${v.make}</option>`).join('');
-  mk.onchange=()=>{ const v=state.db.vehicles.find(x=>x.make===mk.value); md.innerHTML=(v?.models||[]).map(m=>`<option value="${m.name}">${m.name}</option>`).join(''); md.onchange(); };
-  md.onchange=()=>{ const v=state.db.vehicles.find(x=>x.make===mk.value); const m=v?.models.find(x=>x.name===md.value); yr.innerHTML=(m?.years||[]).map(y=>`<option>${y}</option>`).join(''); };
-  mk.onchange();
-}
+// ===== Selectores vehículo =====
+function fillSelectors(prefix){ const mk=$('#'+prefix+'Make'), md=$('#'+prefix+'Model'), yr=$('#'+prefix+'Year'); mk.innerHTML=state.db.vehicles.map(v=>`<option value="${v.make}">${v.make}</option>`).join(''); mk.onchange=()=>{ const v=state.db.vehicles.find(x=>x.make===mk.value); md.innerHTML=(v?.models||[]).map(m=>`<option value="${m.name}">${m.name}</option>`).join(''); md.onchange(); }; md.onchange=()=>{ const v=state.db.vehicles.find(x=>x.make===mk.value); const m=v?.models.find(x=>x.name===md.value); yr.innerHTML=(m?.years||[]).map(y=>`<option>${y}</option>`).join(''); }; mk.onchange(); }
 
-// ========= Líneas Estimado =========
+// ===== Estimado: líneas y totales =====
 const lines=[];
-function renderLines(){
-  const tb=$('#linesTbl tbody'); tb.innerHTML='';
-  const rateB=+$('#rateBody').value||0, rateP=+$('#ratePaint').value||0;
-  let parts=0, lb=0, lp=0;
-  lines.forEach((ln,i)=>{
-    const imp = (ln.qty*ln.price) + (ln.hrsBody*rateB) + (ln.hrsPaint*rateP);
-    parts += (ln.qty*ln.price); lb += ln.hrsBody*rateB; lp += ln.hrsPaint*rateP;
-    const tr=document.createElement('tr');
-    tr.innerHTML = `
-      <td><input value="${ln.name}" data-k="name"/></td>
-      <td><select data-k="type"><option ${ln.type==='Parte'?'selected':''}>Parte</option><option ${ln.type==='Labor'?'selected':''}>Labor</option><option ${ln.type==='Material'?'selected':''}>Material</option></select></td>
-      <td><input type="number" step="0.01" value="${ln.qty}" data-k="qty"/></td>
-      <td><input type="number" step="0.01" value="${ln.price}" data-k="price"/></td>
-      <td><input type="number" step="0.1" value="${ln.hrsBody}" data-k="hrsBody"/></td>
-      <td><input type="number" step="0.1" value="${ln.hrsPaint}" data-k="hrsPaint"/></td>
-      <td align="right">${fmt(imp)}</td>
-      <td class="no-print"><button class="btn" data-rm="${i}">✕</button></td>`;
-    tb.appendChild(tr);
-  });
-  const materialsPct=+$('#materialsPct').value/100||0, feesPct=+$('#feesPct').value/100||0, taxPct=+$('#taxPct').value/100||0;
-  const materials = (lb+lp)*materialsPct; const fees=(parts+lb+lp+materials)*feesPct; const sub=parts+lb+lp+materials+fees; const tax=sub*taxPct; const tot=sub+tax;
-  $('#tParts').textContent=fmt(parts); $('#tLaborBody').textContent=fmt(lb); $('#tLaborPaint').textContent=fmt(lp);
-  $('#tMaterials').textContent=fmt(materials); $('#tFees').textContent=fmt(fees); $('#tSub').textContent=fmt(sub); $('#tTax').textContent=fmt(tax); $('#tTotal').textContent=fmt(tot);
-  // print mirrors
-  $('#pParts').textContent=fmt(parts); $('#pLaborBody').textContent=fmt(lb); $('#pLaborPaint').textContent=fmt(lp); $('#pMaterials').textContent=fmt(materials); $('#pFees').textContent=fmt(fees); $('#pSub').textContent=fmt(sub); $('#pTax').textContent=fmt(tax); $('#pTotal').textContent=fmt(tot);
-}
-$('#linesTbl').addEventListener('input', (e)=>{ const inp=e.target; const tr=inp.closest('tr'); if(!tr) return; const idx=[...tr.parentNode.children].indexOf(tr); const k=inp.dataset.k; if(k) lines[idx][k] = (k==='name'||k==='type')? inp.value : +inp.value; renderLines(); });
-$('#linesTbl').addEventListener('click', (e)=>{ const rm=e.target.dataset.rm; if(rm!==undefined){ lines.splice(+rm,1); renderLines(); }});
+function renderLines(){ const tb=$('#linesTbl tbody'); tb.innerHTML=''; const rateB=+$('#rateBody').value||0, rateP=+$('#ratePaint').value||0; let parts=0,lb=0,lp=0; lines.forEach((ln,i)=>{ const imp=(ln.qty*ln.price)+(ln.hrsBody*rateB)+(ln.hrsPaint*rateP); parts += ln.qty*ln.price; lb += ln.hrsBody*rateB; lp += ln.hrsPaint*rateP; const tr=document.createElement('tr'); tr.innerHTML=`<td><input value="${ln.name}" data-k="name"/></td><td><select data-k="type"><option ${ln.type==='Parte'?'selected':''}>Parte</option><option ${ln.type==='Labor'?'selected':''}>Labor</option><option ${ln.type==='Material'?'selected':''}>Material</option></select></td><td><input type="number" step="0.01" value="${ln.qty}" data-k="qty"/></td><td><input type="number" step="0.01" value="${ln.price}" data-k="price"/></td><td><input type="number" step="0.1" value="${ln.hrsBody}" data-k="hrsBody"/></td><td><input type="number" step="0.1" value="${ln.hrsPaint}" data-k="hrsPaint"/></td><td class='right'>${fmt(imp)}</td><td class='no-print'><button class='btn' data-rm='${i}'>✕</button></td>`; tb.appendChild(tr); }); const materialsPct=+$('#materialsPct').value/100||0, feesPct=+$('#feesPct').value/100||0, taxPct=+$('#taxPct').value/100||0; const materials=(lb+lp)*materialsPct; const fees=(parts+lb+lp+materials)*feesPct; const sub=parts+lb+lp+materials+fees; const tax=sub*taxPct; const tot=sub+tax; $('#tParts').textContent=fmt(parts); $('#tLaborBody').textContent=fmt(lb); $('#tLaborPaint').textContent=fmt(lp); $('#tMaterials').textContent=fmt(materials); $('#tFees').textContent=fmt(fees); $('#tSub').textContent=fmt(sub); $('#tTax').textContent=fmt(tax); $('#tTotal').textContent=fmt(tot); $('#pParts').textContent=fmt(parts); $('#pLaborBody').textContent=fmt(lb); $('#pLaborPaint').textContent=fmt(lp); $('#pMaterials').textContent=fmt(materials); $('#pFees').textContent=fmt(fees); $('#pSub').textContent=fmt(sub); $('#pTax').textContent=fmt(tax); $('#pTotal').textContent=fmt(tot); }
+$('#linesTbl').addEventListener('input',(e)=>{ const inp=e.target; const tr=inp.closest('tr'); if(!tr) return; const idx=[...tr.parentNode.children].indexOf(tr); const k=inp.dataset.k; if(k) lines[idx][k] = (k==='name'||k==='type')? inp.value : +inp.value; renderLines(); });
+$('#linesTbl').addEventListener('click',(e)=>{ const rm=e.target.dataset.rm; if(rm!==undefined){ lines.splice(+rm,1); renderLines(); }});
 $('#addLine').onclick=()=>{ lines.push({name:'(descripción)', type:'Parte', qty:1, price:0, hrsBody:0, hrsPaint:0}); renderLines(); };
-$('#quickPart').addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ const t=e.target.value.toLowerCase(); const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const found = state.db.parts.find(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*') && p.name.toLowerCase().includes(t)); if(found){ lines.push({name:found.name, type:found.type, qty:1, price:found.price, hrsBody:found.hrsBody, hrsPaint:found.hrsPaint}); renderLines(); } else { alert('No se encontró en catálogo. Se añadirá en blanco.'); lines.push({name:e.target.value, type:'Parte', qty:1, price:0, hrsBody:0, hrsPaint:0}); renderLines(); } e.target.value=''; }});
-['rateBody','ratePaint','materialsPct','feesPct','taxPct'].forEach(idv=>{ const el=$('#'+idv); if(el) el.addEventListener('input', renderLines); });
+$('#quickPart').addEventListener('keydown',(e)=>{ if(e.key==='Enter'){ const t=e.target.value.toLowerCase(); const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const f=state.db.parts.find(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*') && p.name.toLowerCase().includes(t)); if(f){ lines.push({name:f.name, type:f.type, qty:1, price:f.price, hrsBody:f.hrsBody, hrsPaint:f.hrsPaint}); } else { lines.push({name:e.target.value, type:'Parte', qty:1, price:0, hrsBody:0, hrsPaint:0}); } e.target.value=''; renderLines(); }});
+['rateBody','ratePaint','materialsPct','feesPct','taxPct'].forEach(id=> $('#'+id).addEventListener('input', renderLines));
 
-// ========= Clientes =========
+// ===== Clientes =====
 function renderClients(){ const q=$('#cSearch').value?.toLowerCase()||''; const tb=$('#cTbl tbody'); tb.innerHTML=''; (state.db.clients||[]).filter(c=>!q||c.name.toLowerCase().includes(q)).forEach((c,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${c.name}</td><td>${c.phone||''}</td><td>${c.email||''}</td><td><button class='btn' data-ed='${i}'>Editar</button> <button class='btn' data-del='${i}'>Borrar</button></td>`; tb.appendChild(tr); }); }
-$('#cSearch').oninput=renderClients;
-$('#cNew').onclick=()=>{ const name=prompt('Nombre del cliente'); if(!name) return; const phone=prompt('Teléfono'); const email=prompt('Email'); (state.db.clients||(state.db.clients=[])).push({id:genid(), name, phone, email}); persist(); renderClients(); };
-$('#cTbl').onclick=(e)=>{ const ed=e.target.dataset.ed, del=e.target.dataset.del; if(ed){ const c=state.db.clients[+ed]; const name=prompt('Nombre', c.name)||c.name; const phone=prompt('Teléfono', c.phone||'')||c.phone; const email=prompt('Email', c.email||'')||c.email; Object.assign(c,{name,phone,email}); persist(); renderClients(); } else if(del){ if(confirm('¿Borrar cliente?')){ state.db.clients.splice(+del,1); persist(); renderClients(); } } };
+$('#cSearch').oninput=renderClients; $('#cNew').onclick=()=>{ const name=prompt('Nombre del cliente'); if(!name) return; const phone=prompt('Teléfono'); const email=prompt('Email'); (state.db.clients||(state.db.clients=[])).push({id:genid(), name, phone, email}); persist(); renderClients(); };
+$('#cTbl').onclick=(e)=>{ const ed=e.target.dataset.ed, del=e.target.dataset.del; if(ed){ const c=state.db.clients[+ed]; const name=prompt('Nombre',c.name)||c.name; const phone=prompt('Teléfono',c.phone||'')||c.phone; const email=prompt('Email',c.email||'')||c.email; Object.assign(c,{name,phone,email}); persist(); renderClients(); } else if(del){ if(confirm('¿Borrar cliente?')){ state.db.clients.splice(+del,1); persist(); renderClients(); } } };
 
-// ========= Base de datos (piezas) =========
+// ===== Base (piezas) =====
 function syncDBSelectors(){ fillSelectors('db'); }
-function renderParts(){ const mk=$('#dbMake').value, md=$('#dbModel').value, yr=$('#dbYear').value; const tb=$('#partsTbl tbody'); tb.innerHTML=''; state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*')).forEach((p)=>{ const tr=document.createElement('tr'); const pid=p._id||(p._id=genid()); tr.dataset.pid=pid; tr.innerHTML=`
-  <td><input value="${p.name}" data-k="name"/></td>
-  <td><input value="${p.type}" data-k="type"/></td>
-  <td><input value="${p.condition}" data-k="condition"/></td>
-  <td><input type='number' step='0.01' value='${p.price}' data-k='price'/></td>
-  <td><input type='number' step='0.1' value='${p.hrsBody}' data-k='hrsBody'/></td>
-  <td><input type='number' step='0.1' value='${p.hrsPaint}' data-k='hrsPaint'/></td>
-  <td><input value='${p.vendor||''}' data-k='vendor'/></td>
-  <td><button class='btn' data-del='${pid}'>✕</button></td>`; tb.appendChild(tr); }); }
+function renderParts(){ const mk=$('#dbMake').value, md=$('#dbModel').value, yr=$('#dbYear').value; const tb=$('#partsTbl tbody'); tb.innerHTML=''; state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*')).forEach((p)=>{ const tr=document.createElement('tr'); const pid=p._id||(p._id=genid()); tr.dataset.pid=pid; tr.innerHTML=`<td><input value='${p.name}' data-k='name'/></td><td><input value='${p.type}' data-k='type'/></td><td><input value='${p.condition||''}' data-k='condition'/></td><td><input type='number' step='0.01' value='${p.price}' data-k='price'/></td><td><input type='number' step='0.1' value='${p.hrsBody||0}' data-k='hrsBody'/></td><td><input type='number' step='0.1' value='${p.hrsPaint||0}' data-k='hrsPaint'/></td><td><input value='${p.vendor||''}' data-k='vendor'/></td><td><button class='btn' data-del='${pid}'>✕</button></td>`; tb.appendChild(tr); }); }
 $('#partsTbl').addEventListener('input',(e)=>{ const tr=e.target.closest('tr'); if(!tr) return; const pid=tr.dataset.pid; const p=state.db.parts.find(x=>x._id===pid); const k=e.target.dataset.k; p[k] = (k==='name'||k==='type'||k==='condition'||k==='vendor')? e.target.value : +e.target.value; persist(); });
 $('#partsTbl').addEventListener('click',(e)=>{ if(e.target.dataset.del){ const pid=e.target.dataset.del; const i=state.db.parts.findIndex(x=>x._id===pid); if(i>=0){ state.db.parts.splice(i,1); persist(); renderParts(); } }});
-$('#addVehicle').onclick=()=>{ const make=prompt('Marca'); if(!make) return; let m = state.db.vehicles.find(v=>v.make===make); if(!m){ m={make, models:[]}; state.db.vehicles.push(m); } const model=prompt('Modelo'); if(!model) return; let md=m.models.find(x=>x.name===model); if(!md){ md={name:model, years:[]}; m.models.push(md); } const year=parseInt(prompt('Año'),10); if(year){ if(!md.years.includes(year)) md.years.push(year); } persist(); syncDBSelectors(); renderParts(); alert('Vehículo añadido'); };
-$('#addPart').onclick=()=>{ const mk=$('#dbMake').value, md=$('#dbModel').value, yr=$('#dbYear').value; const name=prompt('Nombre pieza'); if(!name) return; const price=parseFloat(prompt('Precio', '0'))||0; const hrsB=parseFloat(prompt('Horas carrocería','0'))||0; const hrsP=parseFloat(prompt('Horas pintura','0'))||0; const p={_id:genid(), make:mk, model:md, year:+yr, name, type:'Parte', condition:'Aftermarket', price, hrsBody:hrsB, hrsPaint:hrsP, vendor:'Local'}; state.db.parts.push(p); persist(); renderParts(); };
+$('#addVehicle').onclick=()=>{ const make=prompt('Marca'); if(!make) return; let m=state.db.vehicles.find(v=>v.make===make); if(!m){ m={make,models:[]}; state.db.vehicles.push(m); } const model=prompt('Modelo'); if(!model) return; let md=m.models.find(x=>x.name===model); if(!md){ md={name:model,years:[]}; m.models.push(md); } const year=parseInt(prompt('Año'),10); if(year){ if(!md.years.includes(year)) md.years.push(year); } persist(); syncDBSelectors(); renderParts(); alert('Vehículo añadido'); };
+$('#addPart').onclick=()=>{ const mk=$('#dbMake').value, md=$('#dbModel').value, yr=$('#dbYear').value; const name=prompt('Nombre pieza'); if(!name) return; const price=parseFloat(prompt('Precio','0'))||0; const hrsB=parseFloat(prompt('Horas carrocería','0'))||0; const hrsP=parseFloat(prompt('Horas pintura','0'))||0; const p={_id:genid(), make:mk, model:md, year:+yr, name, type:'Parte', condition:'Aftermarket', price, hrsBody:hrsB, hrsPaint:hrsP, vendor:'Local'}; state.db.parts.push(p); persist(); renderParts(); };
 
-// ========= Vista Mitchell (árbol/diagrama/lista) =========
-const DIAGRAMS = {
+// ===== Vista Mitchell =====
+const DIAGRAMS={
   front:[{n:1,key:'Bumper delantero',x:350,y:140},{n:2,key:'Bonete',x:280,y:90},{n:3,key:'Farol izq',x:250,y:130},{n:4,key:'Farol der',x:420,y:130},{n:5,key:'Refuerzo bumper del',x:360,y:155}],
   left:[{n:6,key:'Tapalodo izq',x:120,y:130},{n:7,key:'Puerta delantera izq',x:210,y:150},{n:8,key:'Puerta trasera izq',x:290,y:150},{n:9,key:'Panel lateral izq',x:500,y:150}],
   right:[{n:10,key:'Tapalodo der',x:470,y:130},{n:11,key:'Puerta delantera der',x:420,y:150},{n:12,key:'Puerta trasera der',x:350,y:150}],
@@ -509,48 +373,36 @@ const DIAGRAMS = {
   roof:[{n:17,key:'Techo',x:360,y:80},{n:18,key:'Parabrisas',x:240,y:95},{n:19,key:'Cristal trasero',x:480,y:95}]
 };
 function buildTree(){ const cont=$('#tree'); cont.innerHTML=''; const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const list=state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*')); const groups={}; list.forEach(p=>{ const sec=(p.type==='Parte'?'Partes':p.type==='Labor'?'Labor':'Materiales'); (groups[sec]||(groups[sec]=[])).push(p); }); Object.entries(groups).forEach(([sec,arr])=>{ const det=document.createElement('details'); det.open=true; det.innerHTML=`<summary>${sec} <span class='small'>(${arr.length})</span></summary>`; arr.forEach(p=>{ const a=document.createElement('div'); a.className='item'; a.style.cursor='pointer'; a.textContent=p.name + (p.condition?` · ${p.condition}`:''); a.onclick=()=> addFromCatalog(p); det.appendChild(a); }); cont.appendChild(det); }); }
-function renderHotspots(){ const box=$('#diagram'); $$('.hotspot').forEach(h=>h.remove()); const view=$('#viewSel').value||'front'; (DIAGRAMS[view]||[]).forEach(h=>{ const el=document.createElement('div'); el.className='hotspot'; el.style.left=(h.x-12)+'px'; el.style.top=(h.y-12)+'px'; el.textContent=h.n; el.title=h.key; el.onclick=()=> addByKey(h.key); box.appendChild(el); }); }
-function renderPartsList(){ const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const items=$('#partsItems'); items.innerHTML=''; const list=state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*')); list.forEach(p=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<div class='row'><span>${p.name} ${p.condition?`<span class='small'>(${p.condition})</span>`:''}</span><span class='small'>${fmt(p.price)}</span></div><div class='small'>Hrs: carrocería ${p.hrsBody||0} · pintura ${p.hrsPaint||0} · proveedor ${p.vendor||'-'}</div><div class='right'><button class='btn' data-add='1'>Añadir</button></div>`; d.querySelector('[data-add]')?.addEventListener('click',()=> addFromCatalog(p)); items.appendChild(d); }); }
+function renderHotspots(){ const box=$('#diagram'); $$('.hotspot').forEach(h=>h.remove()); const view=$('#viewSel').value||'front'; (DIAGRAMS[view]||[]).forEach(h=>{ const el=document.createElement('div'); el.className='hotspot'; el.style.left=(h.x-11)+'px'; el.style.top=(h.y-11)+'px'; el.textContent=h.n; el.title=h.key; el.onclick=()=> addByKey(h.key); box.appendChild(el); }); }
+function renderPartsList(){ const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const items=$('#partsItems'); items.innerHTML=''; const list=state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*')); list.forEach(p=>{ const d=document.createElement('div'); d.className='item'; d.innerHTML=`<div class='row' style='justify-content:space-between'><span>${p.name} ${p.condition?`<span class='small'>(${p.condition})</span>`:''}</span><span class='small'>${fmt(p.price)}</span></div><div class='small'>Hrs: carr. ${p.hrsBody||0} · pint. ${p.hrsPaint||0} · prov. ${p.vendor||'-'}</div><div class='right'><button class='btn' data-add='1'>Añadir</button></div>`; d.querySelector('[data-add]')?.addEventListener('click',()=> addFromCatalog(p)); items.appendChild(d); }); }
 function addByKey(key){ const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value; const p=state.db.parts.find(pp=> (pp.make===mk||pp.make==='*') && (pp.model===md||pp.model==='*') && (pp.year==yr||pp.year==='*') && pp.name.toLowerCase().includes(key.toLowerCase())); if(p) addFromCatalog(p); else alert('No hay coincidencias para: '+key); }
 function addFromCatalog(p){ lines.push({name:p.name, type:p.type||'Parte', qty:1, price:+p.price||0, hrsBody:+p.hrsBody||0, hrsPaint:+p.hrsPaint||0}); renderLines(); }
 
-// ========= Guardar/Imprimir =========
+// ===== Guardar / Imprimir / Registros =====
 function refreshRatesBox(){ $('#rateBody').value=state.cfg.rates.body; $('#ratePaint').value=state.cfg.rates.paint; $('#materialsPct').value=state.cfg.rates.materialsPct; $('#feesPct').value=state.cfg.rates.feesPct; $('#taxPct').value=state.cfg.rates.taxPct; }
 function nextQuoteNo(){ const seq=state.cfg.seq||{quote:1001}; const n=seq.quote++; state.cfg.seq=seq; persist(); return n; }
-function printCurrent(){ if(!lines.length){ alert('Añade al menos una partida'); return; } $('#pLogo').src = state.cfg.business.logo||''; $('#pCliente').textContent=$('#qCliente').value; $('#pTel').textContent=$('#qTel').value; $('#pEmail').textContent=$('#qEmail').value; $('#pVehicle').textContent = `${$('#qYear').value} ${$('#qMake').value} ${$('#qModel').value}`; $('#pVIN').textContent=$('#qVIN').value? `VIN: ${$('#qVIN').value}`:''; const tb=$('#pLines'); tb.innerHTML=''; const rateB=+$('#rateBody').value, rateP=+$('#ratePaint').value; lines.forEach(ln=>{ const imp=(ln.qty*ln.price)+(ln.hrsBody*rateB)+(ln.hrsPaint*rateP); const tr=document.createElement('tr'); tr.innerHTML=`<td>${ln.name}</td><td>${ln.type}</td><td align='right'>${ln.qty}</td><td align='right'>${fmt(ln.price)}</td><td align='right'>${(ln.hrsBody+ln.hrsPaint).toFixed(1)}</td><td align='right'>${fmt(imp)}</td>`; tb.appendChild(tr); }); const hdr=document.createElement('div'); hdr.className='small'; hdr.innerHTML=`<strong>${state.cfg.business.name}</strong> · ${state.cfg.business.addr||''} · ${state.cfg.business.phone||''} · ${state.cfg.business.email||''} · Cotización #${nextQuoteNo()}`; const qa=$('#printArea .quote'); qa.querySelector('.hdr')?.remove(); hdr.classList.add('hdr'); qa.prepend(hdr); window.print(); }
-$('#printQuote').onclick=printCurrent; $('#btnPrint').onclick=printCurrent; $('#saveQuote').onclick=()=>{ const q={ id:genid(), ts:new Date().toISOString(), customer:{name:$('#qCliente').value, phone:$('#qTel').value, email:$('#qEmail').value}, vehicle:{make:$('#qMake').value, model:$('#qModel').value, year:$('#qYear').value, vin:$('#qVIN').value}, rates:{body:+$('#rateBody').value, paint:+$('#ratePaint').value, materials:+$('#materialsPct').value, fees:+$('#feesPct').value, tax:+$('#taxPct').value}, lines:JSON.parse(JSON.stringify(lines)) }; state.quotes.push(q); persist(); alert('Estimado guardado'); };
+function computeQuoteTotal(q){ const r=q.rates||{body:0,paint:0,materials:0,fees:0,tax:0}; let parts=0,lb=0,lp=0; (q.lines||[]).forEach(ln=>{ parts += (ln.qty*ln.price); lb += (ln.hrsBody*r.body); lp += (ln.hrsPaint*r.paint); }); const materials=(lb+lp)*(+r.materials/100); const fees=(parts+lb+lp+materials)*(+r.fees/100); const sub=parts+lb+lp+materials+fees; const tax=sub*(+r.tax/100); const tot=sub+tax; return {parts,lb,lp,materials,fees,sub,tax,tot}; }
+function printCurrent(){ if(!lines.length){ alert('Añade al menos una partida'); return; } $('#pLogo').src=state.cfg.business.logo||''; $('#pCliente').textContent=$('#qCliente').value; $('#pTel').textContent=$('#qTel').value; $('#pEmail').textContent=$('#qEmail').value; $('#pVehicle').textContent=`${$('#qYear').value} ${$('#qMake').value} ${$('#qModel').value}`; $('#pVIN').textContent=$('#qVIN').value?`VIN: ${$('#qVIN').value}`:''; const tb=$('#pLines'); tb.innerHTML=''; const rateB=+$('#rateBody').value, rateP=+$('#ratePaint').value; lines.forEach(ln=>{ const imp=(ln.qty*ln.price)+(ln.hrsBody*rateB)+(ln.hrsPaint*rateP); const tr=document.createElement('tr'); tr.innerHTML=`<td>${ln.name}</td><td>${ln.type}</td><td align='right'>${ln.qty}</td><td align='right'>${fmt(ln.price)}</td><td align='right'>${(ln.hrsBody+ln.hrsPaint').toFixed(1)}</td><td align='right'>${fmt(imp)}</td>`; tb.appendChild(tr); }); const hdr=document.createElement('div'); hdr.className='small hdr'; hdr.innerHTML=`<strong>${state.cfg.business.name}</strong> · ${state.cfg.business.addr||''} · ${state.cfg.business.phone||''} · ${state.cfg.business.email||''} · Cotización #${nextQuoteNo()}`; const qa=$('#printArea .quote'); qa.querySelector('.hdr')?.remove(); qa.prepend(hdr); window.print(); }
+$('#printQuote').onclick=printCurrent; $('#btnPrint').onclick=printCurrent;
+$('#saveQuote').onclick=()=>{ const q={ id:genid(), ts:new Date().toISOString(), customer:{name:$('#qCliente').value, phone:$('#qTel').value, email:$('#qEmail').value}, vehicle:{make:$('#qMake').value, model:$('#qModel').value, year:$('#qYear').value, vin:$('#qVIN').value}, rates:{body:+$('#rateBody').value, paint:+$('#ratePaint').value, materials:+$('#materialsPct').value, fees:+$('#feesPct').value, tax:+$('#taxPct').value}, lines:JSON.parse(JSON.stringify(lines)) }; state.quotes.push(q); persist(); renderRegistry(); alert('Estimado guardado'); };
+function loadQuote(qid){ const q=state.quotes.find(x=>x.id===qid); if(!q) return alert('No existe'); $('#qCliente').value=q.customer?.name||''; $('#qTel').value=q.customer?.phone||''; $('#qEmail').value=q.customer?.email||''; $('#qMake').value=q.vehicle?.make||''; $('#qMake').dispatchEvent(new Event('change')); $('#qModel').value=q.vehicle?.model||''; $('#qModel').dispatchEvent(new Event('change')); $('#qYear').value=q.vehicle?.year||''; $('#rateBody').value=q.rates.body; $('#ratePaint').value=q.rates.paint; $('#materialsPct').value=q.rates.materials; $('#feesPct').value=q.rates.fees; $('#taxPct').value=q.rates.tax; lines.length=0; (q.lines||[]).forEach(l=>lines.push({...l})); renderLines(); document.querySelector('nav button[data-tab="estimados"]').click(); }
+function renderRegistry(){ $('#countQuotes').textContent=(state.quotes||[]).length; $('#countClients').textContent=(state.db.clients||[]).length; $('#countParts').textContent=(state.db.parts||[]).length; const tb=$('#quotesTbl tbody'); if(tb){ tb.innerHTML=''; (state.quotes||[]).slice().reverse().forEach(q=>{ const t=computeQuoteTotal(q).tot; const tr=document.createElement('tr'); const veh=`${q.vehicle?.year||''} ${q.vehicle?.make||''} ${q.vehicle?.model||''}`.trim(); tr.innerHTML=`<td>${q.id.slice(-5)}</td><td>${new Date(q.ts).toLocaleString('es-PR')}</td><td>${q.customer?.name||''}</td><td>${veh}</td><td class='right'>${fmt(t)}</td><td class='right'><button class='btn' data-view='${q.id}'>Ver</button> <button class='btn alt' data-print='${q.id}'>Imprimir</button> <button class='btn warn' data-del='${q.id}'>Borrar</button></td>`; tb.appendChild(tr); }); }
+  const dumpEl=$('#stateDump'); if(dumpEl) dumpEl.value = JSON.stringify({cfg:state.cfg, db:state.db, quotes:state.quotes}, null, 2);
+}
+$('#quotesTbl')?.addEventListener('click',(e)=>{ const vid=e.target.dataset.view, pid=e.target.dataset.print, did=e.target.dataset.del; if(vid){ loadQuote(vid); } else if(pid){ loadQuote(pid); setTimeout(()=>printCurrent(),50); } else if(did){ if(confirm('¿Borrar esta cotización?')){ const i=state.quotes.findIndex(x=>x.id===did); if(i>=0){ state.quotes.splice(i,1); persist(); renderRegistry(); } } } });
+$('#btnBackupAll')?.addEventListener('click',()=> download('doctor-car-pro_backup.json', JSON.stringify({cfg:state.cfg, db:state.db, quotes:state.quotes}, null, 2)));
+$('#btnRefreshState')?.addEventListener('click',()=>{ const el=$('#stateDump'); if(el) el.value = JSON.stringify({cfg:state.cfg, db:state.db, quotes:state.quotes}, null, 2); });
+$('#btnClearAll')?.addEventListener('click',()=>{ if(confirm('Esto borrará TODO. ¿Continuar?')){ localStorage.removeItem('dcp_state'); state={cfg:SEED.cfg, db:{vehicles:SEED.vehicles, parts:SEED.parts, clients:[]}, quotes:[], session:null}; persist(); initUI(); alert('Reiniciado'); } });
 
-// ========= Import/Export =========
-$('#btnExport').onclick=()=>{ const out={meta:{name:'Doctor Car Pro — Estimador PR',version:'1.1.0'}, cfg:state.cfg, db:state.db, quotes:state.quotes}; download('doctor-car-pro_estimator.json', JSON.stringify(out,null,2)); };
-$('#btnImport').onclick=()=>{ const i=document.createElement('input'); i.type='file'; i.accept='application/json'; i.onchange=async()=>{ const f=i.files?.[0]; if(!f) return; const txt=await f.text(); try{ const j=JSON.parse(txt); if(j.cfg) state.cfg=j.cfg; if(j.db) state.db=j.db; if(j.quotes) state.quotes=j.quotes; persist(); initUI(); alert('Importado correctamente'); } catch(e){ alert('JSON inválido'); } }; i.click(); };
+// ===== Import/Export & Save =====
+$('#btnExport').onclick=()=> download('doctor-car-pro_estimator.json', JSON.stringify({meta:{name:'Doctor Car Pro — Estimador PR',version:'1.3.0'}, cfg:state.cfg, db:state.db, quotes:state.quotes}, null, 2));
+$('#btnImport').onclick=()=>{ const i=document.createElement('input'); i.type='file'; i.accept='application/json'; i.onchange=async()=>{ const f=i.files?.[0]; if(!f) return; try{ const j=JSON.parse(await f.text()); if(j.cfg) state.cfg=j.cfg; if(j.db) state.db=j.db; if(j.quotes) state.quotes=j.quotes; persist(); initUI(); alert('Importado'); }catch(e){ alert('JSON inválido'); } }; i.click(); };
 $('#btnSave').onclick=()=>{ persist(); alert('Guardado'); };
 
-// ========= Init =========
-function initUI(){
-  // theme
-  const th=state.cfg.theme; document.documentElement.style.setProperty('--bg', th.bg); document.documentElement.style.setProperty('--fg', th.fg); document.documentElement.style.setProperty('--accent', th.accent); document.documentElement.style.setProperty('--accent2', th.accent2);
-  $('#y').textContent=new Date().getFullYear();
-  // header logo
-  if(state.cfg.business.logo) $('#logoImg').src=state.cfg.business.logo; else $('#logoImg').src='';
-  // selectors
-  fillSelectors('q'); syncDBSelectors();
-  // cfg
-  loadCfgForm(); refreshRatesBox();
-  // tables
-  renderClients(); renderParts(); renderLines();
-  // vista mitchell
-  buildTree(); renderPartsList(); renderHotspots();
-  // listeners vehículo y vista
-  ['qMake','qModel','qYear'].forEach(idv=>{ $('#'+idv).addEventListener('change', ()=>{ buildTree(); renderPartsList(); renderHotspots(); }); });
-  $('#viewSel').addEventListener('change', renderHotspots);
-  bindNav();
-}
-
-// asegurar IDs
-state.db.parts = state.db.parts.map(p=>({...p, _id: p._id||genid()}));
-
-if(state.session){ showApp(true); initUI(); }
-else{ showApp(false); const u=$('#lgUser'), p=$('#lgPass'); if(u&&p){ u.value='admin'; p.value='admin123'; } }
+// ===== Init =====
+function initUI(){ applyTheme(); $('#y').textContent=new Date().getFullYear(); if(state.cfg.business.logo) $('#logoImg').src=state.cfg.business.logo; fillSelectors('q'); syncDBSelectors(); loadCfgForm(); refreshRatesBox(); renderClients(); renderParts(); renderLines(); buildTree(); renderPartsList(); renderHotspots(); ['qMake','qModel','qYear'].forEach(id=> $('#'+id).addEventListener('change',()=>{ buildTree(); renderPartsList(); renderHotspots(); })); $('#viewSel').addEventListener('change', renderHotspots); document.body.classList.toggle('compact', !!state.cfg.ui?.compact); const tgl=$('#toggleCompact'); if(tgl){ tgl.checked=!!state.cfg.ui?.compact; tgl.onchange=(e)=>{ state.cfg.ui=state.cfg.ui||{}; state.cfg.ui.compact=e.target.checked; document.body.classList.toggle('compact', e.target.checked); persist(); }; } renderRegistry(); bindNav(); }
+state.db.parts = state.db.parts.map(p=>({...p,_id:p._id||genid()}));
+if(state.session){ showApp(true); initUI(); } else { showApp(false); $('#lgUser').value='admin'; $('#lgPass').value='admin123'; }
 </script>
 </body>
 </html>
