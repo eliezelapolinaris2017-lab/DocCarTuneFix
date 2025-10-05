@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Repair Car Pro — Dimensiones Carrocería</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2554/2554933.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-neutral-950 text-neutral-100">
+  <div id="root"></div>
+  <script type="text/babel">
+    function App() {
+      const [data, setData] = React.useState(null);
+      React.useEffect(() => {
+        fetch('body_db.json')
+          .then(r => r.json())
+          .then(setData)
+          .catch(() => setData({ error: "No se pudo cargar el archivo body_db.json" }));
+      }, []);
+      if (!data) return <div className='p-10 text-center'>Cargando base de datos...</div>;
+      if (data.error) return <div className='p-10 text-center text-red-500'>{data.error}</div>;
+
+      const [selected, setSelected] = React.useState(null);
+      return (
+        <div className='p-6'>
+          <h1 className='text-2xl font-bold mb-4 text-emerald-400'>Repair Car Pro — Carrocería</h1>
+          <p className='text-neutral-400 mb-4'>Dimensiones y holguras de carrocería — Base local JSON</p>
+          <div className='grid md:grid-cols-3 gap-4'>
+            <div className='bg-neutral-900 p-4 rounded-xl'>
+              <h2 className='font-semibold mb-2'>Vehículos</h2>
+              <div className='max-h-80 overflow-auto border border-neutral-800 rounded'>
+                {data.vehicles.map(v => (
+                  <button key={v.id}
+                    onClick={() => setSelected(v)}
+                    className={'w-full text-left px-3 py-2 hover:bg-neutral-800 ' + (selected?.id === v.id ? 'bg-neutral-800' : '')}>
+                    <div className='font-medium'>{v.year} {v.make} {v.model}</div>
+                    <div className='text-neutral-400 text-sm'>{v.body} • {v.market} • {v.notes}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className='md:col-span-2 bg-neutral-900 p-4 rounded-xl'>
+              {selected ? (
+                <>
+                  <h2 className='text-xl font-semibold mb-2'>{selected.year} {selected.make} {selected.model}</h2>
+                  <p className='text-neutral-400 mb-3'>{selected.body} • {selected.market}</p>
+                  <div className='grid md:grid-cols-2 gap-4'>
+                    <div>
+                      <h3 className='font-semibold mb-1'>Dimensiones (mm)</h3>
+                      <table className='text-sm w-full'>
+                        {Object.entries(data.specs[selected.id].overall).map(([k,v]) => (
+                          <tr key={k}><td className='capitalize'>{k.replace(/_/g,' ')}</td><td className='text-right'>{v}</td></tr>
+                        ))}
+                      </table>
+                      <h3 className='font-semibold mt-4 mb-1'>Holguras objetivo</h3>
+                      <table className='text-sm w-full'>
+                        {Object.entries(data.specs[selected.id].gaps).map(([k,v]) => (
+                          <tr key={k}><td className='capitalize'>{k.replace(/_/g,' ')}</td>
+                          <td className='text-right'>{v.target} ±{v.tol}</td></tr>
+                        ))}
+                      </table>
+                    </div>
+                    <div>
+                      <h3 className='font-semibold mb-1'>Puntos datum (mm)</h3>
+                      <table className='text-sm w-full'>
+                        <thead><tr><th>Punto</th><th>X</th><th>Y</th><th>Z</th></tr></thead>
+                        <tbody>
+                          {data.specs[selected.id].datum.map((p,i)=>(
+                            <tr key={i}><td>{p.name}</td><td>{p.x_mm}</td><td>{p.y_mm}</td><td>{p.z_mm}</td></tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <h3 className='font-semibold mt-4 mb-1'>Procedimientos</h3>
+                  <ol className='list-decimal list-inside text-sm text-neutral-300'>
+                    {data.specs[selected.id].procedures.map((s,i)=>(<li key={i}>{s}</li>))}
+                  </ol>
+                </>
+              ) : <p className='text-neutral-400'>Selecciona un vehículo a la izquierda.</p>}
+            </div>
+          </div>
+        </div>
+      );
+    }
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
