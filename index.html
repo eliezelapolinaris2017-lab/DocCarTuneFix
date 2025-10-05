@@ -72,7 +72,7 @@ footer{color:var(--muted);font-size:12px;padding:24px}
     <div class="brand">
       <img id="logoImg" class="logo" alt="logo"/>
       <h1>Doctor Car Pro — Estimador Carrocería PR</h1>
-      <span class="badge">Mitchell-style · Local/JSON · Offline</span>
+      <span class="badge">Mitchell-style · Local/JSON</span>
     </div>
     <div class="row">
       <button class="btn" id="btnImport">Importar JSON</button>
@@ -155,7 +155,15 @@ footer{color:var(--muted);font-size:12px;padding:24px}
     <div class="no-print" style="margin:6px 0 12px;display:flex;gap:8px;align-items:center">
       <button class="btn primary" id="addLine">Añadir partida</button>
       <input id="quickPart" placeholder="Buscar pieza (ej: bumper, tapalodo, bonete)" style="max-width:320px"/>
-      <span class="badge">o usa la vista por diagrama ↓</span>
+      <label class="small" style="margin-left:8px">Vista:</label>
+      <select id="viewSel">
+        <option value="front">Frente</option>
+        <option value="left">Lado izquierdo</option>
+        <option value="right">Lado derecho</option>
+        <option value="rear">Parte trasera</option>
+        <option value="roof">Techo</option>
+      </select>
+      <span class="badge">Toca un número en el diagrama o elige en el árbol</span>
     </div>
 
     <!-- ===== Vista tipo Mitchell: Árbol + Diagrama + Lista ===== -->
@@ -377,44 +385,49 @@ function toDataURL(file){return new Promise((res,rej)=>{const r=new FileReader()
 // ESTADO + SEED JSON (editable)
 // ============================
 const SEED = {
-  meta:{name:'Doctor Car Pro — Estimador PR', version:'1.0.0', currency:'USD', default_ivu:11.5, created: new Date().toISOString()},
+  meta:{name:'Doctor Car Pro — Estimador PR', version:'1.1.0', currency:'USD', default_ivu:11.5, created: new Date().toISOString()},
   cfg:{
     business:{name:'Tu Taller', phone:'787-000-0000', email:'taller@correo.com', addr:'Dirección, PR', logo:null},
-    rates:{body:65, paint:60, materialsPct:8, feesPct:2, taxPct:11.5},
+    rates:{body:70, paint:65, materialsPct:8, feesPct:2, taxPct:11.5},
     theme:{bg:'#0f1115', fg:'#ffffff', accent:'#ef4444', accent2:'#3b82f6'},
     users:[{u:'admin', p:'admin123', role:'admin'}],
-    currency:'USD'
+    currency:'USD',
+    seq: {quote: 1001}
   },
   vehicles:[
-    {make:'Toyota', models:[{name:'Corolla', years:[2014,2015,2016,2017,2018]},{name:'RAV4', years:[2016,2017,2018,2019]}]},
-    {make:'Honda', models:[{name:'Civic', years:[2012,2013,2014,2015]},{name:'CR-V', years:[2015,2016,2017]}]},
-    {make:'Nissan', models:[{name:'Sentra', years:[2013,2014,2015,2016]},{name:'Altima', years:[2014,2015,2016]}]},
-    {make:'Hyundai', models:[{name:'Elantra', years:[2016,2017,2018]},{name:'Tucson', years:[2016,2017,2018]}]},
-    {make:'Kia', models:[{name:'Rio', years:[2016,2017,2018]},{name:'Sportage', years:[2016,2017,2018]}]},
-    {make:'Ford', models:[{name:'Focus', years:[2014,2015,2016]},{name:'Escape', years:[2015,2016,2017]}]},
-    {make:'Chevrolet', models:[{name:'Malibu', years:[2015,2016,2017]},{name:'Equinox', years:[2016,2017,2018]}]},
+    {make:'Toyota', models:[{name:'Corolla', years:[2014,2015,2016,2017,2018,2019]},{name:'Camry', years:[2015,2016,2017,2018]},{name:'RAV4', years:[2016,2017,2018,2019]}]},
+    {make:'Honda', models:[{name:'Civic', years:[2012,2013,2014,2015,2016]},{name:'Accord', years:[2014,2015,2016]},{name:'CR-V', years:[2015,2016,2017]}]},
+    {make:'Nissan', models:[{name:'Sentra', years:[2013,2014,2015,2016,2017]},{name:'Altima', years:[2014,2015,2016]}]},
+    {make:'Hyundai', models:[{name:'Elantra', years:[2016,2017,2018,2019]},{name:'Accent', years:[2015,2016,2017]},{name:'Tucson', years:[2016,2017,2018]}]},
+    {make:'Kia', models:[{name:'Rio', years:[2016,2017,2018]},{name:'Forte', years:[2016,2017,2018]},{name:'Sportage', years:[2016,2017,2018]}]},
+    {make:'Ford', models:[{name:'Focus', years:[2014,2015,2016]},{name:'Fiesta', years:[2013,2014,2015]},{name:'Escape', years:[2015,2016,2017]}]},
+    {make:'Chevrolet', models:[{name:'Malibu', years:[2015,2016,2017]},{name:'Cruze', years:[2014,2015,2016]},{name:'Equinox', years:[2016,2017,2018]}]},
     {make:'Jeep', models:[{name:'Wrangler', years:[2012,2013,2014,2015]},{name:'Cherokee', years:[2015,2016,2017]}]},
     {make:'Mitsubishi', models:[{name:'Lancer', years:[2014,2015,2016]},{name:'Outlander', years:[2015,2016,2017]}]}
   ],
-  // Catálogo mínimo demostrativo. Amplíalo con Importar/Exportar.
   parts:[
-    // Toyota Corolla 2016 ejemplos
+    // Toyota Corolla 2016
     {make:'Toyota', model:'Corolla', year:2016, name:'Bumper delantero', type:'Parte', condition:'Aftermarket', price:240, hrsBody:2.0, hrsPaint:1.5, vendor:'Local aftermarket'},
+    {make:'Toyota', model:'Corolla', year:2016, name:'Refuerzo bumper del.', type:'Parte', condition:'OEM', price:180, hrsBody:1.0, hrsPaint:0.0, vendor:'Dealer PR'},
     {make:'Toyota', model:'Corolla', year:2016, name:'Tapalodo izq.', type:'Parte', condition:'OEM', price:220, hrsBody:1.8, hrsPaint:1.2, vendor:'Dealer PR'},
+    {make:'Toyota', model:'Corolla', year:2016, name:'Tapalodo der.', type:'Parte', condition:'OEM', price:220, hrsBody:1.8, hrsPaint:1.2, vendor:'Dealer PR'},
     {make:'Toyota', model:'Corolla', year:2016, name:'Bonete (hood)', type:'Parte', condition:'Reciclada', price:180, hrsBody:2.5, hrsPaint:2.0, vendor:'Junker PR'},
+    {make:'Toyota', model:'Corolla', year:2016, name:'Bisagra bonete izq.', type:'Parte', condition:'Aftermarket', price:35, hrsBody:0.5, hrsPaint:0.0, vendor:'Local'},
     {make:'Toyota', model:'Corolla', year:2016, name:'Farol izq.', type:'Parte', condition:'Aftermarket', price:130, hrsBody:0.8, hrsPaint:0.0, vendor:'Local aftermarket'},
-    {make:'Toyota', model:'Corolla', year:2016, name:'Pintura color base', type:'Material', condition:'-', price:0, hrsBody:0, hrsPaint:1.0, vendor:'-'},
+    {make:'Toyota', model:'Corolla', year:2016, name:'Faro niebla der.', type:'Parte', condition:'Aftermarket', price:60, hrsBody:0.5, hrsPaint:0.0, vendor:'Local'},
 
     // Honda Civic 2014
     {make:'Honda', model:'Civic', year:2014, name:'Bumper trasero', type:'Parte', condition:'Aftermarket', price:230, hrsBody:1.6, hrsPaint:1.4, vendor:'Local aftermarket'},
     {make:'Honda', model:'Civic', year:2014, name:'Puerta delantera der.', type:'Parte', condition:'OEM', price:520, hrsBody:3.0, hrsPaint:2.0, vendor:'Dealer PR'},
+    {make:'Honda', model:'Civic', year:2014, name:'Panel lateral izq. (quarter)', type:'Parte', condition:'OEM', price:680, hrsBody:6.0, hrsPaint:2.5, vendor:'Dealer PR'},
 
     // Nissan Sentra 2015
     {make:'Nissan', model:'Sentra', year:2015, name:'Baúl (trunk lid)', type:'Parte', condition:'Reciclada', price:250, hrsBody:2.2, hrsPaint:1.8, vendor:'Junker PR'},
 
-    // Algunos genéricos por si el año no aparece
+    // Genéricos
     {make:'*', model:'*', year:'*', name:'Aro 16"', type:'Parte', condition:'Aftermarket', price:120, hrsBody:0.3, hrsPaint:0.0, vendor:'Local ruedas'},
-    {make:'*', model:'*', year:'*', name:'Barreta / Parrilla', type:'Parte', condition:'Aftermarket', price:160, hrsBody:0.7, hrsPaint:0.5, vendor:'Local aftermarket'}
+    {make:'*', model:'*', year:'*', name:'Barreta / Parrilla', type:'Parte', condition:'Aftermarket', price:160, hrsBody:0.7, hrsPaint:0.5, vendor:'Local aftermarket'},
+    {make:'*', model:'*', year:'*', name:'Soldadura (por punto)', type:'Labor', condition:'-', price:0, hrsBody:0.3, hrsPaint:0.0, vendor:'-'}
   ],
   clients:[],
   quotes:[]
@@ -612,11 +625,15 @@ $('#addPart').onclick=()=>{
 function refreshRatesBox(){
   $('#rateBody').value=state.cfg.rates.body; $('#ratePaint').value=state.cfg.rates.paint; $('#materialsPct').value=state.cfg.rates.materialsPct; $('#feesPct').value=state.cfg.rates.feesPct; $('#taxPct').value=state.cfg.rates.taxPct;
 }
+function nextQuoteNo(){ const seq=state.cfg.seq||{quote:1001}; const n=seq.quote++; state.cfg.seq=seq; persist(); return n; }
 function printCurrent(){
-  // Compactar datos en área de impresión
+  if(!lines.length){ alert('Añade al menos una partida'); return; }
+  // encabezado negocio
   $('#pLogo').src = state.cfg.business.logo||'';
   $('#pCliente').textContent=$('#qCliente').value; $('#pTel').textContent=$('#qTel').value; $('#pEmail').textContent=$('#qEmail').value;
   $('#pVehicle').textContent = `${$('#qYear').value} ${$('#qMake').value} ${$('#qModel').value}`; $('#pVIN').textContent=$('#qVIN').value? `VIN: ${$('#qVIN').value}`:'';
+  const num = nextQuoteNo();
+  // tabla de líneas
   const tb=$('#pLines'); tb.innerHTML='';
   const rateB=+$('#rateBody').value, rateP=+$('#ratePaint').value;
   lines.forEach(ln=>{
@@ -624,6 +641,9 @@ function printCurrent(){
     const tr=document.createElement('tr');
     tr.innerHTML=`<td>${ln.name}</td><td>${ln.type}</td><td align='right'>${ln.qty}</td><td align='right'>${fmt(ln.price)}</td><td align='right'>${(ln.hrsBody+ln.hrsPaint).toFixed(1)}</td><td align='right'>${fmt(imp)}</td>`; tb.appendChild(tr);
   });
+  // encabezado dinámico
+  const hdr = document.createElement('div'); hdr.className='small'; hdr.innerHTML = `<strong>${state.cfg.business.name}</strong> · ${state.cfg.business.addr||''} · ${state.cfg.business.phone||''} · ${state.cfg.business.email||''} · Cotización #${num}`;
+  $('#printArea .quote').prepend(hdr);
   window.print();
 }
 $('#printQuote').onclick=printCurrent; $('#btnPrint').onclick=printCurrent;
@@ -658,15 +678,37 @@ $('#btnSave').onclick=()=>{ persist(); alert('Guardado'); };
 // ============================
 // VISTA TIPO MITCHELL (ÁRBOL, DIAGRAMA, LISTA)
 // ============================
-const DIAGRAM_MAP = [
-  {n:1, key:'Bumper delantero', x:350, y:140},
-  {n:2, key:'Bonete', x:280, y:90},
-  {n:3, key:'Tapalodo izq', x:120, y:130},
-  {n:4, key:'Tapalodo der', x:470, y:130},
-  {n:5, key:'Puerta delantera der', x:420, y:150},
-  {n:6, key:'Bumper trasero', x:520, y:160},
-  {n:7, key:'Baúl', x:500, y:110}
-];
+const DIAGRAMS = {
+  front:[
+    {n:1, key:'Bumper delantero', x:350, y:140},
+    {n:2, key:'Bonete', x:280, y:90},
+    {n:3, key:'Farol izq', x:250, y:130},
+    {n:4, key:'Farol der', x:420, y:130},
+    {n:5, key:'Refuerzo bumper del', x:360, y:155}
+  ],
+  left:[
+    {n:6, key:'Tapalodo izq', x:120, y:130},
+    {n:7, key:'Puerta delantera izq', x:210, y:150},
+    {n:8, key:'Puerta trasera izq', x:290, y:150},
+    {n:9, key:'Panel lateral izq', x:500, y:150}
+  ],
+  right:[
+    {n:10, key:'Tapalodo der', x:470, y:130},
+    {n:11, key:'Puerta delantera der', x:420, y:150},
+    {n:12, key:'Puerta trasera der', x:350, y:150}
+  ],
+  rear:[
+    {n:13, key:'Bumper trasero', x:520, y:160},
+    {n:14, key:'Baúl', x:500, y:110},
+    {n:15, key:'Tapa luz trasera izq', x:460, y:140},
+    {n:16, key:'Tapa luz trasera der', x:540, y:140}
+  ],
+  roof:[
+    {n:17, key:'Techo', x:360, y:80},
+    {n:18, key:'Parabrisas', x:240, y:95},
+    {n:19, key:'Cristal trasero', x:480, y:95}
+  ]
+};
 function buildTree(){
   const cont = $('#tree'); cont.innerHTML='';
   const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value;
@@ -686,11 +728,11 @@ function buildTree(){
 }
 function renderHotspots(){
   const box = $('#diagram'); $$('.hotspot').forEach(h=>h.remove());
-  DIAGRAM_MAP.forEach(h=>{
-    const el=document.createElement('div'); el.className='hotspot'; el.style.left = (h.x-12)+'px'; el.style.top=(h.y-12)+'px'; el.textContent=h.n;
-    el.title = h.key; el.onclick=()=> addByKey(h.key);
-    box.appendChild(el);
+  const view = $('#viewSel').value || 'front';
+  (DIAGRAMS[view]||[]).forEach(h=>{
+    const el=document.createElement('div'); el.className='hotspot'; el.style.left=(h.x-12)+'px'; el.style.top=(h.y-12)+'px'; el.textContent=h.n; el.title=h.key; el.onclick=()=> addByKey(h.key); box.appendChild(el);
   });
+});
 }
 function renderPartsList(){
   const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value;
@@ -746,4 +788,5 @@ if(state.session){ showApp(true); initUI(); } else { showApp(false); }
 </script>
 </body>
 </html>
+
 
