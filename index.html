@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AutoSpec Hub · Dimensiones Carrocería (US & PR)</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- jsPDF + AutoTable (para exportar PDF) -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.3/dist/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    :root{
+      --bg: #0b0d12;
+      --panel: #12151d;
+      --panel-2: #171b25;
+      --text: #e5e7eb;
+      --muted: #9aa3b2;
+      --primary: #7c5cff;
+      --primary-2: #5b39ff;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --border: #242a36;
+      --shadow: 0 8px 24px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, #1b2030 0%, #0b0d12 40%, #0b0d12 100%);
+      color: var(--text);
+    }
+    .container{ max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+    /* Auth Card */
+    .card{ background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card .hd{ padding: 28px 28px 0; display:flex; align-items:center; gap:12px; }
+    .badge{ font-size: 12px; color: #cfd5e3; background: #222836; border:1px solid #2a3040; padding: 4px 8px; border-radius: 999px;}
+    .title{ font-size: 24px; font-weight: 700; letter-spacing:.2px; }
+    .subtitle{ font-size: 14px; color: var(--muted); margin-top: 4px; }
+    .card .bd{ padding: 24px 28px 28px; }
+
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    @media (max-width: 860px){ .grid-2, .grid-3{ grid-template-columns: 1fr; } }
+
+    .input{ width:100%; background:#0f131b; border:1px solid #202536; color:var(--text);
+      padding:12px 12px; border-radius:12px; outline:none; transition: border .2s ease; }
+    .input:focus{ border-color: var(--primary); }
+
+    .btn{ appearance:none; border:none; cursor:pointer; border-radius: 12px; padding: 10px 14px; font-weight:600;
+      background: var(--primary); color:white; box-shadow: 0 6px 16px rgba(124,92,255,.35); transition: transform .05s ease, background .2s ease; }
+    .btn:hover{ background: var(--primary-2); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.ghost{ background: transparent; color: var(--text); border:1px solid var(--border); box-shadow:none; }
+    .btn.warn{ background: var(--warning); color:#0f0f11; box-shadow: 0 6px 16px rgba(245,158,11,.35); }
+    .btn.danger{ background: var(--danger); }
+    .btn.success{ background: var(--success); color:#07110e; }
+
+    .toolbar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .toolbar .spacer{ flex:1; }
+
+    .kpis{ display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; margin-top:12px; }
+    .kpi{ background:#0e121a; border:1px solid #202536; padding:16px; border-radius: 14px; }
+    .kpi .label{ font-size: 12px; color: var(--muted); }
+    .kpi .value{ font-size: 20px; font-weight: 700; margin-top: 6px; }
+
+    /* Table */
+    table{ width:100%; border-collapse: collapse; }
+    thead th{ text-align:left; font-size:12px; color:#b5bed1; padding: 10px; border-bottom:1px solid #232a3a; position:sticky; top:0; background:#111522; }
+    tbody td{ padding: 12px 10px; border-bottom:1px solid #1a2030; font-size:14px; }
+    tbody tr:hover{ background: #0f1320; }
+    .table-wrap{ overflow:auto; max-height: 480px; border:1px solid #1c2232; border-radius: 12px; }
+
+    .pill{ padding: 4px 8px; border-radius: 999px; font-size: 12px; border:1px solid #273149; background:#121a2d; }
+    .footer{ margin: 26px 0; color: var(--muted); font-size: 12px; text-align:center; }
+
+    .hidden{ display:none !important; }
+    .right{ text-align:right; }
+
+    .switch{ position:relative; width:46px; height:28px; background:#1a2030; border:1px solid #26304a; border-radius:999px; cursor:pointer; }
+    .switch .dot{ position:absolute; top:2px; left:2px; width:24px; height:24px; background:#fff; border-radius:50%; transition:left .2s ease; }
+    .switch.active .dot{ left:20px; }
+
+    .tag{ background:#0c111b; border:1px solid #20283a; color:#b6c1d6; font-size:11px; padding:4px 8px; border-radius:999px; }
+    .note{ font-size:12px; color:#9aa3b2; }
+
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.3px;
+      background: linear-gradient(90deg, #c8d4ff, #9daaff, #c9bfff);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .logo svg{ width:22px; height:22px; }
+
+    .modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(6,9,14,.6); backdrop-filter: blur(4px); z-index: 50; }
+    .modal-card{ width:min(680px, 94vw); background: linear-gradient(180deg, #111622, #0f1420);
+      border:1px solid #232b3f; border-radius:16px; box-shadow: var(--shadow); }
+    .modal .hd, .modal .bd { padding: 18px 18px 0; }
+    .modal .bd{ padding-bottom: 18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Auth View -->
+    <div id="authCard" class="card">
+      <div class="hd">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 16 0v3a3 3 0 0 0 3 3H1a3 3 0 0 0 3-3v-3Z" stroke="#8ea2ff" stroke-width="1.2"/><path d="M9.5 9.5h5v5h-5z" stroke="#b9c4ff" stroke-width="1.2"/></svg>
+          <span>AutoSpec Hub</span>
+        </div>
+        <span class="badge">US & Puerto Rico</span>
+      </div>
+      <div class="bd">
+        <div class="grid-2">
+          <div>
+            <div class="title">Inicia sesión</div>
+            <div class="subtitle">Base de datos de dimensiones por marca / modelo / año.</div>
+            <div style="height:8px"></div>
+            <label>Correo</label>
+            <input id="authEmail" class="input" type="email" placeholder="tu@email.com" />
+            <label style="margin-top:10px; display:block;">Contraseña</label>
+            <input id="authPass" class="input" type="password" placeholder="••••••••" />
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:12px; gap:10px;">
+              <button class="btn" onclick="Auth.login()">Entrar</button>
+              <button class="btn ghost" onclick="Auth.register()">Crear cuenta</button>
+              <div class="note">Local (no es un servidor real)</div>
+            </div>
+          </div>
+          <div>
+            <div class="kpis">
+              <div class="kpi"><div class="label">Registros</div><div id="kpiRecords" class="value">0</div></div>
+              <div class="kpi"><div class="label">Marcas</div><div id="kpiBrands" class="value">0</div></div>
+              <div class="kpi"><div class="label">Modelos</div><div id="kpiModels" class="value">0</div></div>
+              <div class="kpi"><div class="label">Años</div><div id="kpiYears" class="value">0</div></div>
+            </div>
+            <div style="margin-top:12px" class="note">⚠️ Este login es sólo de demostración y se guarda en tu navegador con <b>localStorage</b>. Para producción, conecta tu propio backend (Firebase/Auth0/tu API).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App View -->
+    <div id="app" class="card hidden" style="margin-top:18px;">
+      <div class="hd" style="justify-content:space-between;">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 1 1 16 0v3a3 3 0 0 0 3 3H1a3 3 0 0 0 3-3v-3Z" stroke="#8ea2ff" stroke-width="1.2"/><path d="M9.5 9.5h5v5h-5z" stroke="#b9c4ff" stroke-width="1.2"/></svg>
+          <span>AutoSpec Hub</span>
+        </div>
+        <div class="toolbar">
+          <span class="tag" id="userEmailTag">—</span>
+          <button class="btn ghost" onclick="UI.toggleDarkMode()" title="Tema claro/oscuro">
+            <span id="dmLabel">Oscuro</span>
+          </button>
+          <button class="btn ghost" onclick="Auth.logout()">Salir</button>
+        </div>
+      </div>
+      <div class="bd">
+        <div class="toolbar" style="gap:12px;">
+          <input id="q" class="input" style="max-width: 280px;" placeholder="Buscar (marca, modelo, año, mercado)" oninput="UI.applyFilters()" />
+
+          <select id="fBrand" class="input" onchange="UI.syncModels(); UI.applyFilters()">
+            <option value="">Marca</option>
+          </select>
+          <select id="fModel" class="input" onchange="UI.applyFilters()">
+            <option value="">Modelo</option>
+          </select>
+          <select id="fYear" class="input" onchange="UI.applyFilters()">
+            <option value="">Año</option>
+          </select>
+          <select id="fMarket" class="input" onchange="UI.applyFilters()">
+            <option value="">Mercado</option>
+            <option>US</option>
+            <option>PR</option>
+          </select>
+
+          <div class="spacer"></div>
+
+          <label class="btn ghost" for="jsonFile">➕ Importar JSON</label>
+          <input id="jsonFile" type="file" accept="application/json" class="hidden" />
+
+          <button class="btn" onclick="Export.toPDF()">Exportar PDF</button>
+          <button class="btn warn" onclick="UI.openAddModal()">Nuevo registro</button>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi"><div class="label">En tabla</div><div id="kpiVisible" class="value">0</div></div>
+          <div class="kpi"><div class="label">Prom. Longitud (mm)</div><div id="kpiAvgLength" class="value">—</div></div>
+          <div class="kpi"><div class="label">Prom. Ancho (mm)</div><div id="kpiAvgWidth" class="value">—</div></div>
+          <div class="kpi"><div class="label">Prom. Altura (mm)</div><div id="kpiAvgHeight" class="value">—</div></div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:14px;">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Año</th>
+                <th>Mercado</th>
+                <th class="right">Largo (mm)</th>
+                <th class="right">Ancho (mm)</th>
+                <th class="right">Alto (mm)</th>
+                <th class="right">Dist. ejes (mm)</th>
+                <th class="right">Peso (kg)</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="footer">💾 Todo se guarda en tu navegador. Puedes importar más datos en formato JSON y exportar tu vista a PDF.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Nuevo registro -->
+  <div id="addModal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="hd" style="display:flex; align-items:center; justify-content:space-between;">
+        <div class="title">Añadir registro</div>
+        <button class="btn ghost" onclick="UI.closeAddModal()">Cerrar</button>
+      </div>
+      <div class="bd">
+        <div class="grid-3">
+          <input id="newBrand" class="input" placeholder="Marca" />
+          <input id="newModel" class="input" placeholder="Modelo" />
+          <input id="newYear" class="input" type="number" placeholder="Año" />
+        </div>
+        <div class="grid-3" style="margin-top:8px;">
+          <select id="newMarket" class="input">
+            <option>US</option>
+            <option>PR</option>
+          </select>
+          <input id="newLen" class="input" type="number" placeholder="Largo (mm)" />
+          <input id="newWid" class="input" type="number" placeholder="Ancho (mm)" />
+        </div>
+        <div class="grid-3" style="margin-top:8px;">
+          <input id="newHei" class="input" type="number" placeholder="Alto (mm)" />
+          <input id="newWhl" class="input" type="number" placeholder="Dist. ejes (mm)" />
+          <input id="newWgt" class="input" type="number" placeholder="Peso (kg)" />
+        </div>
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:14px;">
+          <button class="btn ghost" onclick="UI.closeAddModal()">Cancelar</button>
+          <button class="btn success" onclick="Data.addFromForm()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /** ======================
+     *  Datos iniciales (demo)
+     *  =====================*/
+    const seed = [
+      { brand: 'Toyota', model: 'Camry', year: 2024, market:'US', length_mm: 4910, width_mm: 1840, height_mm: 1445, wheelbase_mm: 2825, curb_kg: 1490 },
+      { brand: 'Toyota', model: 'Corolla', year: 2024, market:'PR', length_mm: 4630, width_mm: 1780, height_mm: 1435, wheelbase_mm: 2700, curb_kg: 1310 },
+      { brand: 'Honda', model: 'Civic', year: 2023, market:'US', length_mm: 4670, width_mm: 1800, height_mm: 1415, wheelbase_mm: 2735, curb_kg: 1250 },
+      { brand: 'Tesla', model: 'Model 3', year: 2024, market:'US', length_mm: 4720, width_mm: 1849, height_mm: 1441, wheelbase_mm: 2875, curb_kg: 1725 },
+      { brand: 'Ford', model: 'F-150', year: 2024, market:'US', length_mm: 5890, width_mm: 2029, height_mm: 1960, wheelbase_mm: 3694, curb_kg: 2100 },
+      { brand: 'Hyundai', model: 'Elantra', year: 2022, market:'PR', length_mm: 4675, width_mm: 1825, height_mm: 1415, wheelbase_mm: 2720, curb_kg: 1240 },
+      { brand: 'Chevrolet', model: 'Silverado 1500', year: 2024, market:'US', length_mm: 5885, width_mm: 2063, height_mm: 1980, wheelbase_mm: 3745, curb_kg: 2190 },
+      { brand: 'Kia', model: 'Soul', year: 2023, market:'PR', length_mm: 4195, width_mm: 1800, height_mm: 1600, wheelbase_mm: 2600, curb_kg: 1245 }
+    ];
+
+    const LS_KEYS = {
+      USERS: 'ash_users',
+      SESSION: 'ash_session',
+      DATA: 'ash_data'
+    };
+
+    const Utils = {
+      loadLS(key, fallback){
+        try{ return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch(e){ return fallback; }
+      },
+      saveLS(key, value){ localStorage.setItem(key, JSON.stringify(value)); },
+      uid(){ return Math.random().toString(36).slice(2,9); },
+      /** Normaliza claves aceptando múltiples formatos al importar */
+      normalize(record){
+        const r = { ...record };
+        // Alias habituales
+        r.brand = r.brand || r.marca || r.make || r.Make;
+        r.model = r.model || r.modelo || r.Model || r.name;
+        r.year = Number(r.year || r.ano || r.Ano || r.Year);
+        r.market = (r.market || r.mercado || r.Market || 'US').toUpperCase();
+        // Dimensiones: aceptar mm o pulgadas y convertir a mm si viene en inches
+        const toMM = (v, unit) => {
+          if (v == null || v === '') return undefined;
+          const num = Number(v);
+          if (Number.isNaN(num)) return undefined;
+          if (!unit) return num; // asumimos mm
+          const u = String(unit).toLowerCase();
+          if (u.includes('in') || u.includes('inch')) return Math.round(num * 25.4);
+          return num; // mm
+        };
+        r.length_mm = r.length_mm ?? r.largo_mm ?? toMM(r.length_in || r.largo_in, 'in') ?? toMM(r.length, r.length_unit);
+        r.width_mm  = r.width_mm  ?? r.ancho_mm ?? toMM(r.width_in  || r.ancho_in , 'in') ?? toMM(r.width , r.width_unit);
+        r.height_mm = r.height_mm ?? r.alto_mm  ?? toMM(r.height_in || r.alto_in  , 'in') ?? toMM(r.height, r.height_unit);
+        r.wheelbase_mm = r.wheelbase_mm ?? r.dist_ejes_mm ?? toMM(r.wheelbase_in || r.dist_ejes_in, 'in') ?? toMM(r.wheelbase, r.wheelbase_unit);
+        r.curb_kg = r.curb_kg ?? r.peso_kg ?? (r.curb_lb ? Math.round(Number(r.curb_lb) * 0.453592) : undefined) ?? r.weight_kg;
+
+        // Validaciones mínimas
+        if(!r.brand || !r.model || !r.year){ return null; }
+        return {
+          id: r.id || Utils.uid(),
+          brand: String(r.brand).trim(),
+          model: String(r.model).trim(),
+          year: Number(r.year),
+          market: (r.market || 'US').toUpperCase(),
+          length_mm: Number(r.length_mm) || null,
+          width_mm: Number(r.width_mm) || null,
+          height_mm: Number(r.height_mm) || null,
+          wheelbase_mm: Number(r.wheelbase_mm) || null,
+          curb_kg: Number(r.curb_kg) || null,
+        };
+      },
+      groupBy(arr, key){ return arr.reduce((m, it) => ((m[it[key]] = m[it[key]] || []).push(it), m), {}); },
+      avg(arr){ if(!arr.length) return null; const s = arr.reduce((a,b)=>a+b,0); return Math.round(s/arr.length); },
+      download(filename, text){ const el = document.createElement('a'); el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text)); el.setAttribute('download', filename); el.style.display='none'; document.body.appendChild(el); el.click(); document.body.removeChild(el); }
+    };
+
+    /** ======================
+     *  Autenticación (demo)
+     *  =====================*/
+    const Auth = {
+      users: Utils.loadLS(LS_KEYS.USERS, []),
+      session: Utils.loadLS(LS_KEYS.SESSION, null),
+      login(){
+        const email = document.getElementById('authEmail').value.trim().toLowerCase();
+        const pass = document.getElementById('authPass').value;
+        const u = this.users.find(x => x.email === email);
+        if(!u){ alert('Usuario no encontrado. Crea una cuenta.'); return; }
+        if(u.pass !== btoa(pass)){ alert('Contraseña incorrecta.'); return; }
+        this.session = { email };
+        Utils.saveLS(LS_KEYS.SESSION, this.session);
+        UI.enterApp();
+      },
+      register(){
+        const email = document.getElementById('authEmail').value.trim().toLowerCase();
+        const pass = document.getElementById('authPass').value;
+        if(!email || !pass){ alert('Completa correo y contraseña'); return; }
+        if(this.users.some(x => x.email === email)){ alert('Ese correo ya está registrado'); return; }
+        this.users.push({ email, pass: btoa(pass) });
+        Utils.saveLS(LS_KEYS.USERS, this.users);
+        alert('Cuenta creada. Ahora inicia sesión.');
+      },
+      logout(){ this.session = null; localStorage.removeItem(LS_KEYS.SESSION); location.reload(); }
+    };
+
+    /** ======================
+     *  Datos
+     *  =====================*/
+    const Data = {
+      all: Utils.loadLS(LS_KEYS.DATA, null) || seed.map(r => ({...r, id: Utils.uid()})),
+      persist(){ Utils.saveLS(LS_KEYS.DATA, this.all); },
+      add(rec){ this.all.push(rec); this.persist(); },
+      addFromForm(){
+        const rec = Utils.normalize({
+          brand: document.getElementById('newBrand').value,
+          model: document.getElementById('newModel').value,
+          year: document.getElementById('newYear').value,
+          market: document.getElementById('newMarket').value,
+          length_mm: document.getElementById('newLen').value,
+          width_mm: document.getElementById('newWid').value,
+          height_mm: document.getElementById('newHei').value,
+          wheelbase_mm: document.getElementById('newWhl').value,
+          curb_kg: document.getElementById('newWgt').value,
+        });
+        if(!rec){ alert('Datos incompletos'); return; }
+        this.add(rec); UI.closeAddModal(); UI.render();
+      },
+      importJSON(text){
+        let arr;
+        try{ arr = JSON.parse(text); } catch(e){ alert('JSON inválido'); return; }
+        if(!Array.isArray(arr)) arr = [arr];
+        let added = 0;
+        for(const it of arr){
+          const n = Utils.normalize(it);
+          if(n){ this.add(n); added++; }
+        }
+        UI.render();
+        alert(`Importados ${added} registros`);
+      },
+      delete(id){ if(confirm('¿Eliminar este registro?')){ this.all = this.all.filter(x=>x.id!==id); this.persist(); UI.render(); } }
+    };
+
+    /** ======================
+     *  UI / Render
+     *  =====================*/
+    const UI = {
+      state:{ query:'', brand:'', model:'', year:'', market:'' },
+      enterApp(){
+        document.getElementById('authCard').classList.add('hidden');
+        document.getElementById('app').classList.remove('hidden');
+        document.getElementById('userEmailTag').textContent = Auth.session?.email || '—';
+        this.render();
+      },
+      render(){
+        this.fillFilters();
+        this.applyFilters();
+        // KPIs de portada
+        document.getElementById('kpiRecords').textContent = Data.all.length;
+        document.getElementById('kpiBrands').textContent = Object.keys(Utils.groupBy(Data.all,'brand')).length;
+        document.getElementById('kpiModels').textContent = Object.keys(Utils.groupBy(Data.all,'model')).length;
+        document.getElementById('kpiYears').textContent = Object.keys(Utils.groupBy(Data.all,'year')).length;
+      },
+      fillFilters(){
+        const brands = [...new Set(Data.all.map(x=>x.brand))].sort();
+        const years = [...new Set(Data.all.map(x=>x.year))].sort((a,b)=>b-a);
+        const fBrand = document.getElementById('fBrand');
+        const fYear = document.getElementById('fYear');
+        fBrand.innerHTML = '<option value="">Marca</option>' + brands.map(b=>`<option>${b}</option>`).join('');
+        fYear.innerHTML  = '<option value="">Año</option>' + years.map(y=>`<option>${y}</option>`).join('');
+      },
+      syncModels(){
+        const brand = document.getElementById('fBrand').value;
+        const models = [...new Set(Data.all.filter(x=>!brand || x.brand===brand).map(x=>x.model))].sort();
+        const fModel = document.getElementById('fModel');
+        fModel.innerHTML = '<option value="">Modelo</option>' + models.map(m=>`<option>${m}</option>`).join('');
+      },
+      applyFilters(){
+        this.state.query = document.getElementById('q').value.toLowerCase();
+        this.state.brand = document.getElementById('fBrand').value;
+        this.state.model = document.getElementById('fModel').value;
+        this.state.year = document.getElementById('fYear').value;
+        this.state.market = document.getElementById('fMarket').value;
+
+        const rows = Data.all.filter(r => {
+          const txt = `${r.brand} ${r.model} ${r.year} ${r.market}`.toLowerCase();
+          const matchQ = !this.state.query || txt.includes(this.state.query);
+          const matchB = !this.state.brand || r.brand === this.state.brand;
+          const matchM = !this.state.model || r.model === this.state.model;
+          const matchY = !this.state.year || String(r.year) === String(this.state.year);
+          const matchMk = !this.state.market || r.market === this.state.market;
+          return matchQ && matchB && matchM && matchY && matchMk;
+        });
+        const tbody = document.querySelector('#tbl tbody');
+        tbody.innerHTML = rows.map(r => `
+          <tr>
+            <td>${r.brand}</td>
+            <td>${r.model}</td>
+            <td>${r.year}</td>
+            <td><span class="pill">${r.market}</span></td>
+            <td class="right">${r.length_mm ?? '—'}</td>
+            <td class="right">${r.width_mm ?? '—'}</td>
+            <td class="right">${r.height_mm ?? '—'}</td>
+            <td class="right">${r.wheelbase_mm ?? '—'}</td>
+            <td class="right">${r.curb_kg ?? '—'}</td>
+            <td class="right">
+              <button class="btn ghost" onclick="UI.showDetails('${r.id}')">Ver</button>
+              <button class="btn ghost" onclick="Data.delete('${r.id}')">🗑</button>
+            </td>
+          </tr>
+        `).join('');
+
+        document.getElementById('kpiVisible').textContent = rows.length;
+        const lengths = rows.map(r=>r.length_mm).filter(Boolean);
+        const widths  = rows.map(r=>r.width_mm).filter(Boolean);
+        const heights = rows.map(r=>r.height_mm).filter(Boolean);
+        document.getElementById('kpiAvgLength').textContent = Utils.avg(lengths) ?? '—';
+        document.getElementById('kpiAvgWidth').textContent  = Utils.avg(widths)  ?? '—';
+        document.getElementById('kpiAvgHeight').textContent = Utils.avg(heights) ?? '—';
+      },
+      showDetails(id){
+        const r = Data.all.find(x=>x.id===id);
+        if(!r) return;
+        const lines = [
+          ['Marca', r.brand], ['Modelo', r.model], ['Año', r.year], ['Mercado', r.market],
+          ['Largo (mm)', r.length_mm ?? '—'], ['Ancho (mm)', r.width_mm ?? '—'], ['Alto (mm)', r.height_mm ?? '—'],
+          ['Distancia entre ejes (mm)', r.wheelbase_mm ?? '—'], ['Peso (kg)', r.curb_kg ?? '—']
+        ];
+        const html = `
+          <div class="modal" onclick="if(event.target===this) this.classList.add('hidden')">
+            <div class="modal-card">
+              <div class="hd" style="display:flex; align-items:center; justify-content:space-between;">
+                <div class="title">${r.brand} ${r.model} · ${r.year}</div>
+                <button class="btn ghost" onclick="UI.closeTopModal()">Cerrar</button>
+              </div>
+              <div class="bd">
+                ${lines.map(([k,v])=>`<div style='display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #232b3f;'><div class='note'>${k}</div><div><b>${v}</b></div></div>`).join('')}
+              </div>
+            </div>
+          </div>`;
+        const m = document.createElement('div');
+        m.innerHTML = html.trim();
+        document.body.appendChild(m.firstChild);
+      },
+      closeTopModal(){ const modals = document.querySelectorAll('.modal'); if(modals.length){ modals[modals.length-1].remove(); } },
+      openAddModal(){ document.getElementById('addModal').classList.remove('hidden'); },
+      closeAddModal(){ document.getElementById('addModal').classList.add('hidden'); },
+      toggleDarkMode(){
+        const body = document.body;
+        body.dataset.theme = body.dataset.theme === 'light' ? 'dark' : 'light';
+        document.getElementById('dmLabel').textContent = body.dataset.theme === 'light' ? 'Claro' : 'Oscuro';
+        if(body.dataset.theme === 'light'){
+          document.documentElement.style.setProperty('--bg', '#f4f6fb');
+          document.documentElement.style.setProperty('--panel', '#ffffff');
+          document.documentElement.style.setProperty('--panel-2', '#f8fafc');
+          document.documentElement.style.setProperty('--text', '#0b1220');
+          document.documentElement.style.setProperty('--muted', '#51607a');
+          document.documentElement.style.setProperty('--border', '#e6eaf3');
+          document.body.style.background = 'linear-gradient(180deg, #eef2ff, #f8fafc)';
+        } else {
+          document.documentElement.style.setProperty('--bg', '#0b0d12');
+          document.documentElement.style.setProperty('--panel', '#12151d');
+          document.documentElement.style.setProperty('--panel-2', '#171b25');
+          document.documentElement.style.setProperty('--text', '#e5e7eb');
+          document.documentElement.style.setProperty('--muted', '#9aa3b2');
+          document.documentElement.style.setProperty('--border', '#242a36');
+          document.body.style.background = 'radial-gradient(1200px 800px at 80% -10%, #1b2030 0%, #0b0d12 40%, #0b0d12 100%)';
+        }
+      }
+    };
+
+    /** ======================
+     *  Exportar a PDF
+     *  =====================*/
+    const Export = {
+      toPDF(){
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ orientation:'landscape', unit:'pt', format:'a4' });
+        const rows = [...document.querySelectorAll('#tbl tbody tr')].map(tr => [...tr.children].slice(0,9).map(td => td.innerText));
+        const head = [[ 'Marca', 'Modelo', 'Año', 'Mercado', 'Largo (mm)', 'Ancho (mm)', 'Alto (mm)', 'Dist. ejes (mm)', 'Peso (kg)' ]];
+        doc.setFont('helvetica','bold');
+        doc.text('AutoSpec Hub — Dimensiones Carrocería', 40, 40);
+        doc.setFont('helvetica','normal');
+        doc.setFontSize(10);
+        doc.text(new Date().toLocaleString(), 40, 58);
+        doc.autoTable({ startY: 76, head, body: rows, styles:{ fontSize:9 }, headStyles:{ fillColor:[124,92,255] } });
+        doc.save('autospec-dimensiones.pdf');
+      }
+    };
+
+    /** ======================
+     *  Boot
+     *  =====================*/
+    (function boot(){
+      // Login automático si hay sesión
+      if(Auth.session){ UI.enterApp(); }
+
+      // Carga de archivo JSON
+      document.getElementById('jsonFile').addEventListener('change', (ev)=>{
+        const file = ev.target.files?.[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = () => Data.importJSON(reader.result);
+        reader.readAsText(file);
+      });
+
+      // Primer render
+      UI.render();
+    })();
+  </script>
+
+  <!-- Guía de esquema JSON esperado
+  [
+    {
+      "brand": "Ford",
+      "model": "Bronco Sport",
+      "year": 2024,
+      "market": "US", // o "PR"
+      "length_mm": 4387,
+      "width_mm": 1887,
+      "height_mm": 1783,
+      "wheelbase_mm": 2670,
+      "curb_kg": 1640
+    }
+  ]
+  También se aceptan alias: marca/make, modelo/name, ano/year, mercado/market; dimensiones en pulgadas *_in y peso en libras curb_lb.
+  -->
+</body>
+</html>
