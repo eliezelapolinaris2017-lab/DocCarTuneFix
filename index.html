@@ -243,8 +243,8 @@ hr.sep{border:none;border-top:1px solid var(--border);margin:8px 0}
             <tr><td>Partes</td><td id="pParts" align="right"></td></tr>
             <tr><td>Labor carrocería</td><td id="pLaborBody" align="right"></td></tr>
             <tr><td>Labor pintura</td><td id="pLaborPaint" align="right"></td></tr>
-            <tr><td>Materiales</td><td id="pMaterials" align="right"></td></tr>
-            <tr><td><strong>Subtotal</strong></td><td id="pSub" align="right"></td></tr>
+            $1<tr><td>Comisiones/Fees</td><td id="pFees" align="right"></td></tr>
+<tr><td><strong>Subtotal</strong></td><td id="pSub" align="right"></td></tr>
             <tr><td>IVU</td><td id="pTax" align="right"></td></tr>
             <tr><td><strong>Total</strong></td><td id="pTotal" align="right"></td></tr>
           </table>
@@ -436,3 +436,4 @@ if(state.session){ showApp(true); initUI(); } else { showApp(false); $('#lgUser'
 </script>
 </body>
 </html>
+
