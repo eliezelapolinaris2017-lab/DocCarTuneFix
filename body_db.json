@@ -1,0 +1,516 @@
+{
+  "meta": {
+    "name": "Repair Car Pro — Body Dimensions",
+    "version": "1.0.0",
+    "units": "mm"
+  },
+  "vehicles": [
+    {
+      "id": "2018-Ford-F-150",
+      "year": 2018,
+      "make": "Ford",
+      "model": "F-150",
+      "body": "Crew Cab",
+      "market": "USDM",
+      "notes": "Aluminum body"
+    },
+    {
+      "id": "2019-Chevrolet-Silverado",
+      "year": 2019,
+      "make": "Chevrolet",
+      "model": "Silverado",
+      "body": "Crew Cab",
+      "market": "USDM",
+      "notes": "K2XX"
+    },
+    {
+      "id": "2016-Toyota-Corolla",
+      "year": 2016,
+      "make": "Toyota",
+      "model": "Corolla",
+      "body": "Sedan",
+      "market": "USDM",
+      "notes": "E170"
+    },
+    {
+      "id": "2015-Honda-Civic",
+      "year": 2015,
+      "make": "Honda",
+      "model": "Civic",
+      "body": "Sedan",
+      "market": "USDM",
+      "notes": "FB"
+    },
+    {
+      "id": "2017-Nissan-Sentra",
+      "year": 2017,
+      "make": "Nissan",
+      "model": "Sentra",
+      "body": "Sedan",
+      "market": "USDM",
+      "notes": "B17"
+    },
+    {
+      "id": "2018-Subaru-Impreza",
+      "year": 2018,
+      "make": "Subaru",
+      "model": "Impreza",
+      "body": "Hatch",
+      "market": "USDM",
+      "notes": "GP"
+    },
+    {
+      "id": "2019-Mazda-3",
+      "year": 2019,
+      "make": "Mazda",
+      "model": "3",
+      "body": "Hatch/Sedan",
+      "market": "USDM",
+      "notes": "BP"
+    }
+  ],
+  "specs": {
+    "2018-Ford-F-150": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2019-Chevrolet-Silverado": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2016-Toyota-Corolla": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2015-Honda-Civic": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2017-Nissan-Sentra": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2018-Subaru-Impreza": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    },
+    "2019-Mazda-3": {
+      "overall": {
+        "length_mm": 4600,
+        "width_mm": 1750,
+        "height_mm": 1450,
+        "wheelbase_mm": 2700,
+        "f_track_mm": 1520,
+        "r_track_mm": 1520
+      },
+      "gaps": {
+        "hood_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_front_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "door_rear_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        },
+        "trunk_mm": {
+          "target": 3.5,
+          "tol": 1.0
+        }
+      },
+      "datum": [
+        {
+          "name": "A1",
+          "desc": "Punto bastidor izq.",
+          "x_mm": 400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "A2",
+          "desc": "Punto bastidor der.",
+          "x_mm": -400,
+          "y_mm": -150,
+          "z_mm": 550
+        },
+        {
+          "name": "B1",
+          "desc": "Torre suspensión izq.",
+          "x_mm": 350,
+          "y_mm": 700,
+          "z_mm": 920
+        },
+        {
+          "name": "B2",
+          "desc": "Torre suspensión der.",
+          "x_mm": -350,
+          "y_mm": 700,
+          "z_mm": 920
+        }
+      ],
+      "procedures": [
+        "Nivelar la bancada (A1/A2 ±1 mm en Z).",
+        "Verificar diagonales A1→B2 y A2→B1 (≤ 3 mm).",
+        "Ajustar holguras del capó y puertas a 3.5 ±1.0 mm."
+      ]
+    }
+  },
+  "dtc": []
+}
