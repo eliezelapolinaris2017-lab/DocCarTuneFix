@@ -53,6 +53,17 @@ footer{color:var(--muted);font-size:12px;padding:24px}
   .printable{display:block}
   .quote{border:1px solid #d1d5db;border-radius:12px;padding:16px}
 }
+/* ====== Estilo para vista tipo Mitchell (árbol + diagrama + lista) ====== */
+.split{display:grid;grid-template-columns:260px 1fr 340px;gap:12px;}
+.tree{background:#0d0f18;border:1px solid var(--border);border-radius:12px;padding:8px;max-height:520px;overflow:auto}
+.tree details{border-left:2px solid #1f2333;margin:2px 0;padding-left:6px}
+.tree summary{cursor:pointer;color:#c7cee0}
+.diagram{background:#0d0f18;border:1px solid var(--border);border-radius:12px;min-height:420px;position:relative;display:flex;align-items:center;justify-content:center}
+.diagram svg{max-width:100%;height:auto;opacity:.95}
+.hotspot{position:absolute;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:999px;background:var(--accent);color:#fff;font-weight:700;border:1px solid #000;cursor:pointer}
+.partsList{background:#0d0f18;border:1px solid var(--border);border-radius:12px;padding:8px;max-height:520px;overflow:auto}
+.partsList .row{justify-content:space-between}
+.partsList .item{border-bottom:1px dashed var(--border);padding:6px 0}
 </style>
 </head>
 <body>
@@ -141,12 +152,46 @@ footer{color:var(--muted);font-size:12px;padding:24px}
 
     <hr class="sep"/>
 
-    <div class="row no-print">
+    <div class="no-print" style="margin:6px 0 12px;display:flex;gap:8px;align-items:center">
       <button class="btn primary" id="addLine">Añadir partida</button>
       <input id="quickPart" placeholder="Buscar pieza (ej: bumper, tapalodo, bonete)" style="max-width:320px"/>
+      <span class="badge">o usa la vista por diagrama ↓</span>
     </div>
 
-    <div style="overflow:auto;margin-top:8px">
+    <!-- ===== Vista tipo Mitchell: Árbol + Diagrama + Lista ===== -->
+    <div class="split no-print" id="explodedView">
+      <!-- Árbol de secciones -->
+      <div class="tree" id="tree"></div>
+
+      <!-- Diagrama con hotspots -->
+      <div class="diagram" id="diagram">
+        <!-- SVG simple de un sedán lado izquierdo -->
+        <svg viewBox="0 0 600 260" aria-label="diagrama-carro">
+          <defs>
+            <linearGradient id="carPaint" x1="0" x2="1">
+              <stop offset="0%" stop-color="#1f2a44"/>
+              <stop offset="100%" stop-color="#2a375c"/>
+            </linearGradient>
+          </defs>
+          <g>
+            <rect x="40" y="120" width="520" height="60" rx="14" fill="url(#carPaint)" stroke="#4b5563"/>
+            <path d="M80 120 C140 50, 240 40, 360 70 L520 120 Z" fill="url(#carPaint)" stroke="#4b5563"/>
+            <circle cx="160" cy="190" r="36" fill="#0b0d14" stroke="#6b7280"/>
+            <circle cx="440" cy="190" r="36" fill="#0b0d14" stroke="#6b7280"/>
+            <rect x="210" y="105" width="110" height="35" rx="6" fill="#111827" stroke="#6b7280"/>
+          </g>
+        </svg>
+        <!-- Hotspots posicionados con JS -->
+      </div>
+
+      <!-- Lista de piezas filtradas por sección -->
+      <div class="partsList" id="partsList">
+        <div class="row" style="align-items:center"><strong>Piezas</strong><span class="small" id="partsHint">Filtra desde el árbol o pulsa en un número</span></div>
+        <div id="partsItems"></div>
+      </div>
+    </div>
+
+    <div style="overflow:auto;margin-top:12px">
       <table class="table" id="linesTbl">
         <thead>
           <tr>
@@ -198,53 +243,11 @@ footer{color:var(--muted);font-size:12px;padding:24px}
       </div>
     </div>
 
-    <div id="printArea" class="printable" style="display:none">
-      <div class="quote">
-        <div class="row" style="justify-content:space-between;align-items:center">
-          <div>
-            <h2 style="margin:0">ESTIMADO DE REPARACIÓN</h2>
-            <div class="small">Doctor Car Pro — Estimador Carrocería PR</div>
-          </div>
-          <img id="pLogo" style="height:48px;width:48px;border-radius:8px;border:1px solid #ddd"/>
-        </div>
-        <hr/>
-        <div class="grid cols-2">
-          <div>
-            <strong>Cliente</strong>
-            <div id="pCliente"></div>
-            <div id="pTel" class="small"></div>
-            <div id="pEmail" class="small"></div>
-          </div>
-          <div>
-            <strong>Vehículo</strong>
-            <div id="pVehicle"></div>
-            <div id="pVIN" class="small"></div>
-          </div>
-        </div>
-        <table style="width:100%;border-collapse:collapse;margin-top:8px">
-          <thead>
-            <tr style="border-bottom:1px solid #e5e7eb"><th align="left">Descripción</th><th align="left">Tipo</th><th align="right">Cant.</th><th align="right">Precio</th><th align="right">Horas</th><th align="right">Importe</th></tr>
-          </thead>
-          <tbody id="pLines"></tbody>
-        </table>
-        <div class="row" style="justify-content:flex-end;margin-top:8px">
-          <table>
-            <tr><td>Partes</td><td id="pParts" align="right"></td></tr>
-            <tr><td>Labor carrocería</td><td id="pLaborBody" align="right"></td></tr>
-            <tr><td>Labor pintura</td><td id="pLaborPaint" align="right"></td></tr>
-            <tr><td>Materiales</td><td id="pMaterials" align="right"></td></tr>
-            <tr><td>Comisiones/Fees</td><td id="pFees" align="right"></td></tr>
-            <tr><td><strong>Subtotal</strong></td><td id="pSub" align="right"></td></tr>
-            <tr><td>IVU</td><td id="pTax" align="right"></td></tr>
-            <tr><td><strong>Total</strong></td><td id="pTotal" align="right"></td></tr>
-          </table>
-        </div>
-        <p class="small">Precios de piezas referenciales y editables. Ajuste final sujeto a disponibilidad local en PR (dealer, aftermarket, recicladas). Válido 7 días.</p>
-      </div>
-    </div>
+    <div id="printArea" class="printable" style="display:none">...</div>
   </section>
 
   <!-- Clientes -->
+  <section id="tab-clientes" class="card hidden">
   <section id="tab-clientes" class="card hidden">
     <div class="row">
       <input id="cSearch" placeholder="Buscar cliente" style="max-width:320px"/>
@@ -653,13 +656,72 @@ $('#btnImport').onclick=()=>{
 $('#btnSave').onclick=()=>{ persist(); alert('Guardado'); };
 
 // ============================
+// VISTA TIPO MITCHELL (ÁRBOL, DIAGRAMA, LISTA)
+// ============================
+const DIAGRAM_MAP = [
+  {n:1, key:'Bumper delantero', x:350, y:140},
+  {n:2, key:'Bonete', x:280, y:90},
+  {n:3, key:'Tapalodo izq', x:120, y:130},
+  {n:4, key:'Tapalodo der', x:470, y:130},
+  {n:5, key:'Puerta delantera der', x:420, y:150},
+  {n:6, key:'Bumper trasero', x:520, y:160},
+  {n:7, key:'Baúl', x:500, y:110}
+];
+function buildTree(){
+  const cont = $('#tree'); cont.innerHTML='';
+  const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value;
+  const list = state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*'));
+  const groups = {};
+  list.forEach(p=>{ const sec = (p.type==='Parte'?'Partes':p.type==='Labor'?'Labor':'Materiales'); (groups[sec]||(groups[sec]=[])).push(p); });
+  Object.entries(groups).forEach(([sec, arr])=>{
+    const det=document.createElement('details'); det.open=true;
+    det.innerHTML=`<summary>${sec} <span class='small'>(${arr.length})</span></summary>`;
+    arr.forEach(p=>{
+      const a=document.createElement('div'); a.className='item'; a.style.cursor='pointer'; a.textContent=p.name + (p.condition?` · ${p.condition}`:'');
+      a.onclick=()=> addFromCatalog(p);
+      det.appendChild(a);
+    });
+    cont.appendChild(det);
+  });
+}
+function renderHotspots(){
+  const box = $('#diagram'); $$('.hotspot').forEach(h=>h.remove());
+  DIAGRAM_MAP.forEach(h=>{
+    const el=document.createElement('div'); el.className='hotspot'; el.style.left = (h.x-12)+'px'; el.style.top=(h.y-12)+'px'; el.textContent=h.n;
+    el.title = h.key; el.onclick=()=> addByKey(h.key);
+    box.appendChild(el);
+  });
+}
+function renderPartsList(){
+  const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value;
+  const items=$('#partsItems'); items.innerHTML='';
+  const list = state.db.parts.filter(p=> (p.make===mk||p.make==='*') && (p.model===md||p.model==='*') && (p.year==yr||p.year==='*'));
+  list.forEach(p=>{
+    const d=document.createElement('div'); d.className='item';
+    d.innerHTML=`<div class='row'><span>${p.name} ${p.condition?`<span class='small'>(${p.condition})</span>`:''}</span><span class='small'>${fmt(p.price)}</span></div>
+    <div class='small'>Hrs: carrocería ${p.hrsBody||0} · pintura ${p.hrsPaint||0} · proveedor ${p.vendor||'-'}</div>
+    <div class='right'><button class='btn' data-add='1'>Añadir</button></div>`;
+    d.querySelector('[data-add]')?.addEventListener('click',()=> addFromCatalog(p));
+    items.appendChild(d);
+  });
+}
+function addByKey(key){
+  const mk=$('#qMake').value, md=$('#qModel').value, yr=$('#qYear').value;
+  const p = state.db.parts.find(pp=> (pp.make===mk||pp.make==='*') && (pp.model===md||pp.model==='*') && (pp.year==yr||pp.year==='*') && pp.name.toLowerCase().includes(key.toLowerCase()));
+  if(p) addFromCatalog(p); else alert('No hay coincidencias en el catálogo para: '+key);
+}
+function addFromCatalog(p){
+  lines.push({name:p.name, type:p.type||'Parte', qty:1, price:+p.price||0, hrsBody:+p.hrsBody||0, hrsPaint:+p.hrsPaint||0});
+  renderLines();
+}
+
+// ============================
 // INIT
 // ============================
 function initUI(){
   // theme
   const th=state.cfg.theme; document.documentElement.style.setProperty('--bg', th.bg); document.documentElement.style.setProperty('--fg', th.fg); document.documentElement.style.setProperty('--accent', th.accent); document.documentElement.style.setProperty('--accent2', th.accent2);
   $('#y').textContent=new Date().getFullYear();
-  // header logo
   if(state.cfg.business.logo) $('#logoImg').src=state.cfg.business.logo; else $('#logoImg').src='';
   // selectors estimados
   fillSelectors('q');
@@ -669,6 +731,10 @@ function initUI(){
   loadCfgForm(); refreshRatesBox();
   // tables
   renderClients(); renderParts(); renderLines();
+  // vista tipo Mitchell
+  buildTree(); renderHotspots(); renderPartsList();
+  // refrescar cuando cambie vehículo
+  ['qMake','qModel','qYear'].forEach(idv=>{ $('#'+idv).addEventListener('change', ()=>{ buildTree(); renderPartsList(); })});
 }
 
 // Asegurar IDs en catálogo
@@ -680,3 +746,4 @@ if(state.session){ showApp(true); initUI(); } else { showApp(false); }
 </script>
 </body>
 </html>
+
